@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hochzeitstorten &amp; Torten-Konfigurator – Bäckerei Eichholz</title>
+<meta name="description" content="Entdecken Sie den Aufbau unserer Hochzeits- und Festtagstorten Schicht für Schicht und stellen Sie Biskuit und Füllung ganz nach Ihrem Geschmack zusammen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/img/logo.png" type="image/png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo.png" alt="Bäckerei Eichholz Logo">
+      <span>Eichholz<small>Der Frische-Bäcker</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="sortiment.html">Sortiment</a></li>
+        <li><a href="hochzeitstorten.html" aria-current="page">Hochzeitstorten</a></li>
+        <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Hochzeitstorten</h1>
+    <p>Schicht für Schicht zu Ihrer Wunschtorte</p>
+  </div>
+</div>
+
+<main>
+  <section class="cake-story" id="cakeStory">
+    <div class="container cake-story-inner">
+      <div class="cake-story-visual">
+        <div class="cake-stage">
+          <div class="cake-stack" id="cakeStack">
+            <div class="cake-layer" data-layer-type="biskuit" style="--i:0;">
+              <div class="cake-layer__top"></div>
+              <div class="cake-layer__wall"></div>
+              <span class="cake-layer__label">Boden 1</span>
+            </div>
+            <div class="cake-layer" data-layer-type="fuellung" style="--i:1;">
+              <div class="cake-layer__top"></div>
+              <div class="cake-layer__wall"></div>
+            </div>
+            <div class="cake-layer" data-layer-type="biskuit" style="--i:2;">
+              <div class="cake-layer__top"></div>
+              <div class="cake-layer__wall"></div>
+              <span class="cake-layer__label">Boden 2</span>
+            </div>
+            <div class="cake-layer" data-layer-type="fuellung" style="--i:3;">
+              <div class="cake-layer__top"></div>
+              <div class="cake-layer__wall"></div>
+            </div>
+            <div class="cake-layer" data-layer-type="biskuit" style="--i:4;">
+              <div class="cake-layer__top"></div>
+              <div class="cake-layer__wall"></div>
+              <span class="cake-layer__label">Boden 3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cake-swatches-dock" id="cakeSwatchesDock">
+          <div class="flavor-picker">
+            <div class="flavor-group">
+              <h4>Biskuit</h4>
+              <div class="flavor-swatches" id="biskuitSwatches" role="group" aria-label="Biskuit-Sorte wählen"></div>
+            </div>
+            <div class="flavor-group">
+              <h4>Füllung</h4>
+              <div class="flavor-swatches" id="fuellungSwatches" role="group" aria-label="Füllung wählen"></div>
+            </div>
+          </div>
+          <p class="cake-configurator-note">Platzhalter-Sorten – die finale Auswahl folgt. Die Zusammenstellung dient nur der Anschauung, ohne Bestellfunktion.</p>
+        </div>
+      </div>
+
+      <div class="cake-story-panels">
+        <div class="cake-panel" data-panel="intro">
+          <span class="eyebrow">Hochzeits- &amp; Festtagstorten</span>
+          <h2>Ihre Torte, Schicht für Schicht.</h2>
+          <p>Ein Blick hinter die Fondant-Hülle: So ist eine mehrstöckige Torte aus unserer Backstube aufgebaut – scrollen Sie weiter, um sie sich Schicht für Schicht zusammenstellen.</p>
+        </div>
+
+        <div class="cake-panel" data-panel="layers">
+          <h2>So ist sie aufgebaut</h2>
+          <p>Beim Weiterscrollen fahren die Böden auseinander und geben den Blick auf jede einzelne Schicht frei.</p>
+        </div>
+
+        <div class="cake-panel" data-panel="biskuit">
+          <h2>Der Biskuit</h2>
+          <p>Der Biskuit ist der Boden jeder Torte – locker, luftig und Träger von Aroma und Struktur. Je nach Rezeptur reicht seine Textur von feinporig und leicht bis saftig und dicht.</p>
+          <p>Zur Wahl stehen acht Sorten: Sandbiskuit, Schoko, Zitrone, Marmor, Rotwein, Karotte, Mandel und Kokos.</p>
+        </div>
+
+        <div class="cake-panel" data-panel="fuellung">
+          <h2>Die Füllung</h2>
+          <p>Zwischen den Böden sorgt die Füllung für Feuchtigkeit, Süße und den entscheidenden Geschmackskontrast – von cremig-mild bis fruchtig-intensiv.</p>
+          <p>Zur Wahl stehen acht Optionen: Vanillecreme, Buttercreme, Schokocreme, Erdbeercreme, Himbeercreme, Kirschfüllung, Sahnefüllung und Nougatcreme.</p>
+        </div>
+
+        <div class="cake-panel" data-panel="configurator">
+          <h2>Jetzt selbst kombinieren</h2>
+          <p>Wählen Sie Biskuit und Füllung aus – die 3D-Ansicht aktualisiert sich sofort und zeigt Ihre Kombination.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card">
+        <h3>So bestellen Sie Ihre Traumtorte</h3>
+        <p>Ist Ihre Wunschtorte nicht dabei? Schildern Sie uns Ihre Vorstellungen gerne über unser Kontaktformular oder per E-Mail – mit Bildvorschlag und Preisrahmen, oder vereinbaren Sie einen Termin zur gemeinsamen Zusammenstellung vor Ort.</p>
+        <p>Am Tag der Feier wird Ihre Torte von der Chefin persönlich zusammengestellt und dekoriert und auf Wunsch geliefert.</p>
+        <p style="margin-bottom:0;">
+          Tortenanfragen: <a href="mailto:hochzeitstorten@baeckerei-eichholz.de">hochzeitstorten@baeckerei-eichholz.de</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <h4>Bäckerei Eichholz</h4>
+        <p>Ihre Bäckerei und Konditorei im Bereich Eisenach – Handwerk mit Tradition seit 1890.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="sortiment.html">Sortiment</a></li>
+          <li><a href="hochzeitstorten.html">Hochzeitstorten</a></li>
+          <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
+          <li><a href="kontakt.html">Kontakt &amp; Anfahrt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li>Eisenacher Str. 13<br>99831 Amt Creutzburg (Mihla)</li>
+          <li><a href="tel:+493692442067">(03 69 24) 42 06 7</a></li>
+          <li><a href="mailto:info@baeckerei-eichholz.de">info@baeckerei-eichholz.de</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bäckerei Eichholz. Alle Rechte vorbehalten.</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

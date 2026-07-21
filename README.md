@@ -1,0 +1,84 @@
+# Bäckerei Eichholz – neue Website
+
+Statischer Ersatz für die bisherige Seite unter `baeckerei-eichholz.de`. Reines
+HTML/CSS/JS, keine Datenbank, kein Backend, kein Build-Prozess – läuft auf
+jedem normalen Webspace.
+
+## Projektstruktur
+
+```
+baeckerei-eichholz-neu/
+├── index.html              Startseite
+├── ueber-uns.html           Geschichte & Philosophie
+├── sortiment.html           Produktsortiment + Torten
+├── oeffnungszeiten.html     Öffnungszeiten + Filialliste
+├── kontakt.html             Kontakt + Anfahrt (Google Maps)
+├── impressum.html           Impressum
+├── datenschutz.html         Datenschutzerklärung (Platzhalter)
+├── css/style.css            Gesamtes Styling
+├── js/main.js                Mobiles Menü, Sticky-Nav-Scroll-Status, Scroll-Reveal
+└── assets/img/               Logo, Fotos & Hero-Platzhalterbild
+```
+
+## Interaktive Effekte
+
+- **Hero-Bereich** (`index.html`): Vollbild-Bild mit dunklem Verlauf-Overlay,
+  Text/Buttons darüber, sanfte Eingangsanimation beim Laden.
+- **Scroll-Reveal**: Textblöcke, Karten, Galerie- und Tortenbilder blenden
+  beim Herunterscrollen sanft ein (`js/main.js`, `IntersectionObserver` +
+  CSS-Transition über die Klasse `.reveal`). Bewusst ohne externe Bibliothek
+  wie AOS umgesetzt, da das Projekt sonst komplett abhängigkeitsfrei ist –
+  so bleibt es bei einem einzigen kleinen Script ohne zusätzlichen Request.
+  Respektiert `prefers-reduced-motion`.
+- **Sticky Navigation**: Kopfzeile ist zunächst transparent (liegt über dem
+  Hero-/Seitenbanner-Bild) und bekommt erst ab ca. 40px Scroll-Position einen
+  festen Hintergrund samt Schatten (Klasse `.is-scrolled`).
+- **Hover-Effekte**: Karten und Tortenbilder heben sich leicht an und werfen
+  einen stärkeren Schatten, Tortenfotos zoomen dezent, Buttons heben sich an.
+
+## Lokal öffnen & testen
+
+Kein Server nötig – einfach `index.html` per Doppelklick im Browser öffnen,
+oder für realistischeres Testen (empfohlen, wegen relativer Pfade) einen
+einfachen lokalen Server starten:
+
+```bash
+cd baeckerei-eichholz-neu
+python3 -m http.server 8000
+# dann im Browser: http://localhost:8000
+```
+
+Alle Seiten sind responsiv (Desktop/Tablet/Handy) und über die Navigation
+oben verlinkt. Das mobile Menü (Hamburger-Icon) erscheint automatisch unter
+640px Breite.
+
+## Später hosten
+
+Einfach den kompletten Ordnerinhalt per FTP/SFTP oder über das Kunden-Panel
+des Webhosters in das Wurzelverzeichnis (bzw. `public_html`/`htdocs`) hochladen.
+Es sind keine serverseitigen Voraussetzungen (PHP, Datenbank o. Ä.) nötig.
+
+## Noch zu erledigende Platzhalter
+
+| Datei | Was fehlt | Grund |
+|---|---|---|
+| `oeffnungszeiten.html` | Echte Öffnungszeiten (Mo–Fr, Sa, So/Feiertag) für die Hauptfiliale | Waren auf der alten Website nirgends veröffentlicht |
+| `oeffnungszeiten.html` | Ggf. individuelle Öffnungszeiten je der 16 Filialen | Alte Seite listete nur Adressen, keine Zeiten |
+| `datenschutz.html` | Vollständige, rechtsgültige Datenschutzerklärung | Aktuell nur ein Platzhaltertext – bitte mit Generator oder Rechtsberatung erstellen |
+| `impressum.html` | Prüfung auf Aktualität der übernommenen Pflichtangaben | Daten 1:1 vom alten Impressum übernommen, Stand unbekannt |
+| `kontakt.html` | Funktionierendes Kontaktformular (optional) | Reine HTML/CSS/JS-Seite kann Formulare ohne Backend nicht versenden; aktuell nur `mailto:`-Links. Bei Bedarf externen Formular-Dienst (z. B. Formspree, das Formular-Tool des Webhosters) einbinden |
+| Social-Media-Links | Nicht eingebaut | Auf der alten Website waren keine Social-Media-Profile verlinkt |
+| Fotos von Brot/Brötchen & Backstube | Fehlen komplett | Alle 11 übernommenen Fotos zeigen fertige Torten – auf der alten Seite gab es keine Fotos von Broten, Brötchen oder den Produktionsräumen. Für Startseite/Sortiment wären echte Fotos von Brot, Brötchen und der Backstube wünschenswert |
+| Team-/Inhaberfoto | Fehlt | Auf `ueber-uns.html` wäre ein echtes Foto von Jürgen &amp; Susanna Eichholz oder dem Team passender als die aktuell genutzten Tortenfotos |
+| `assets/img/hero-placeholder.svg` | Durch echtes Foto ersetzen | Vollbild-Hero auf der Startseite nutzt aktuell eine selbst gestaltete Illustration (Brot-Motiv in den Markenfarben), da kein echtes Foto von Brot/Backstube vorlag. Einfach ein hochauflösendes Foto (mind. 1600×900px, Querformat) unter demselben Dateinamen ablegen oder den Bildpfad in `index.html` (Klasse `hero-media`) anpassen |
+
+## Übernommene Original-Inhalte
+
+Direkt von der alten Website übernommen (kein Platzhalter nötig):
+
+- **Logo**: `assets/img/logo.png`
+- **Fotos**: `assets/img/torte-galerie-1.jpg` bis `torte-galerie-8.jpg` sowie `torte-hortensia.jpg`, `torte-kroenchen.jpg`, `torte-2645.jpg` – alles Fotos fertiger Torten aus der bisherigen Bildergalerie bzw. der Torten-Unterseite (keine Brot-/Backstubenfotos vorhanden, siehe Platzhalter-Tabelle oben)
+- **Texte**: Firmengeschichte, Sortimentskategorien, Torten-Bestellprozess, alle Adressen der 16 Filialen, Kontaktdaten (Telefon, Fax, E-Mail), Impressum-Pflichtangaben
+
+Alle Bild-Dateien liegen bereits lokal in `assets/img/` – es muss nichts mehr
+von der alten Domain nachgeladen werden.
