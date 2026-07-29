@@ -337,7 +337,7 @@ ul { margin: 0; padding: 0; }
   display: flex;
   align-items: center;
   min-height: 88vh;
-  margin-top: calc(-1 * var(--header-h) - 2px);
+  margin-top: calc(-1 * var(--header-h));
   overflow: hidden;
   color: #fff;
 }
@@ -1433,7 +1433,7 @@ body.cart-drawer-open {
     radial-gradient(circle at 88% 130%, rgba(168, 70, 46, 0.3), transparent 50%),
     var(--color-brown-dark);
   color: #f6ead4;
-  margin-top: calc(-1 * var(--header-h) - 2px);
+  margin-top: calc(-1 * var(--header-h));
   padding: calc(var(--header-h) + 3.2rem) 0 3.2rem;
   text-align: center;
   overflow: hidden;
@@ -1565,14 +1565,17 @@ body.cart-drawer-open {
     left: 0;
     right: 0;
     background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.25s ease;
   }
 
+  /* Rahmen erst im geöffneten Zustand: max-height:0 begrenzt nur die
+     Inhaltsbox, ein Rahmen bliebe als 1px hoher Streifen samt Hintergrund
+     unter dem Header sichtbar. */
   .main-nav.is-open {
     max-height: 400px;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .main-nav ul {
@@ -1639,7 +1642,7 @@ body.cart-drawer-open {
   position: relative;
   height: 900vh;
   z-index: 2;
-  margin-top: calc(-1 * var(--header-h) - 2px);
+  margin-top: calc(-1 * var(--header-h));
 }
 
 .tk-scene-sticky {
