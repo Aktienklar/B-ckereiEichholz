@@ -1443,9 +1443,9 @@ body.cart-drawer-open {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 22px 22px;
-  opacity: 0.6;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -1546,7 +1546,7 @@ body.cart-drawer-open {
   }
 
   .hero-inner {
-    padding-top: 3.5rem;
+    padding-top: calc(var(--header-h) + 1.2rem);
   }
 
   .section--alt {
