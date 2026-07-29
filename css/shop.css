@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Shop – nur auf shop.html / shop-erfolg.html eingebunden.
+   Warenkorb-Icon/Badge/Drawer sind seitenübergreifend und liegen daher in
+   css/style.css, nicht hier.
+   ========================================================================== */
+
+.product-grid {
+  list-style: none;
+}
+
+.product-grid > li {
+  height: 100%;
+}
+
+.card--product {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: left;
+}
+
+.product-photo {
+  width: calc(100% + 3.4rem);
+  margin: -2.2rem -1.7rem 1.2rem;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.product-photo--placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, var(--color-bg-alt), var(--color-border));
+  font-size: 2.2rem;
+}
+
+.product-photo-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-light);
+}
+
+.card--product p {
+  flex-grow: 1;
+}
+
+.product-price {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-brown-dark);
+  margin-bottom: 1.1rem;
+}
+
+.product-price small {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--color-text-light);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.product-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.shop-success {
+  max-width: 640px;
+  text-align: center;
+}
+
+.shop-success .notice-box {
+  text-align: left;
+}
+
+.shop-success .btn {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .product-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .product-card-footer .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

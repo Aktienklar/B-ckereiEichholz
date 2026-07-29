@@ -19,17 +19,27 @@
       <img src="assets/img/logo.png" alt="Bäckerei Eichholz Logo">
       <span>Eichholz<small>Der Frische-Bäcker</small></span>
     </a>
-    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
-    <nav class="main-nav">
+    <div class="header-actions">
+      <button type="button" class="cart-toggle" aria-haspopup="dialog" aria-expanded="false" aria-label="Warenkorb öffnen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge is-hidden" aria-hidden="true">0</span>
+      </button>
+      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
+      <nav class="main-nav">
       <ul>
         <li><a href="index.html">Startseite</a></li>
         <li><a href="ueber-uns.html">Über uns</a></li>
         <li><a href="sortiment.html" aria-current="page">Sortiment</a></li>
+        <li><a href="shop.html">Shop</a></li>
         <li><a href="hochzeitstorten.html">Hochzeitstorten</a></li>
         <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
     </nav>
+    </div>
   </div>
 </header>
 
@@ -477,6 +487,7 @@
           <li><a href="index.html">Startseite</a></li>
           <li><a href="ueber-uns.html">Über uns</a></li>
           <li><a href="sortiment.html">Sortiment</a></li>
+          <li><a href="shop.html">Shop</a></li>
           <li><a href="hochzeitstorten.html">Hochzeitstorten</a></li>
           <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
           <li><a href="kontakt.html">Kontakt &amp; Anfahrt</a></li>
@@ -485,7 +496,7 @@
       <div>
         <h4>Kontakt</h4>
         <ul>
-          <li>Eisenacher Str. 13<br>99831 Amt Creutzburg (Mihla)</li>
+          <li>Eisenacher Str. 13<br>99831 Amt Creuzburg (Mihla)</li>
           <li><a href="tel:+493692442067">(03 69 24) 42 06 7</a></li>
           <li><a href="mailto:info@baeckerei-eichholz.de">info@baeckerei-eichholz.de</a></li>
         </ul>
@@ -493,11 +504,13 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Bäckerei Eichholz. Alle Rechte vorbehalten.</span>
-      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agb.html">AGB</a></span>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/shop-data.js"></script>
+<script src="js/cart.js"></script>
 </body>
 </html>

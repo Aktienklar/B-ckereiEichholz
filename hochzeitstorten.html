@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hochzeitstorten &amp; Torten-Konfigurator – Bäckerei Eichholz</title>
-<meta name="description" content="Entdecken Sie den Aufbau unserer Hochzeits- und Festtagstorten Schicht für Schicht und stellen Sie Biskuit und Füllung ganz nach Ihrem Geschmack zusammen.">
+<meta name="description" content="Erleben Sie den Aufbau unserer achtstöckigen Hochzeitstorte Schicht für Schicht in 3D und stellen Sie Biskuit und Füllung für jede Etage ganz nach Ihrem Geschmack zusammen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/img/logo.png" type="image/png">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -19,118 +19,223 @@
       <img src="assets/img/logo.png" alt="Bäckerei Eichholz Logo">
       <span>Eichholz<small>Der Frische-Bäcker</small></span>
     </a>
-    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
-    <nav class="main-nav">
+    <div class="header-actions">
+      <button type="button" class="cart-toggle" aria-haspopup="dialog" aria-expanded="false" aria-label="Warenkorb öffnen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge is-hidden" aria-hidden="true">0</span>
+      </button>
+      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
+      <nav class="main-nav">
       <ul>
         <li><a href="index.html">Startseite</a></li>
         <li><a href="ueber-uns.html">Über uns</a></li>
         <li><a href="sortiment.html">Sortiment</a></li>
+        <li><a href="shop.html">Shop</a></li>
         <li><a href="hochzeitstorten.html" aria-current="page">Hochzeitstorten</a></li>
         <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
     </nav>
+    </div>
   </div>
 </header>
 
-<div class="page-hero">
-  <div class="container">
-    <h1>Hochzeitstorten</h1>
-    <p>Schicht für Schicht zu Ihrer Wunschtorte</p>
-  </div>
-</div>
-
 <main>
-  <section class="cake-story" id="cakeStory">
-    <div class="container cake-story-inner">
-      <div class="cake-story-visual">
-        <div class="cake-stage">
-          <div class="cake-stack" id="cakeStack">
-            <div class="cake-layer" data-layer-type="biskuit" style="--i:0;">
-              <div class="cake-layer__top"></div>
-              <div class="cake-layer__wall"></div>
-              <span class="cake-layer__label">Boden 1</span>
-            </div>
-            <div class="cake-layer" data-layer-type="fuellung" style="--i:1;">
-              <div class="cake-layer__top"></div>
-              <div class="cake-layer__wall"></div>
-            </div>
-            <div class="cake-layer" data-layer-type="biskuit" style="--i:2;">
-              <div class="cake-layer__top"></div>
-              <div class="cake-layer__wall"></div>
-              <span class="cake-layer__label">Boden 2</span>
-            </div>
-            <div class="cake-layer" data-layer-type="fuellung" style="--i:3;">
-              <div class="cake-layer__top"></div>
-              <div class="cake-layer__wall"></div>
-            </div>
-            <div class="cake-layer" data-layer-type="biskuit" style="--i:4;">
-              <div class="cake-layer__top"></div>
-              <div class="cake-layer__wall"></div>
-              <span class="cake-layer__label">Boden 3</span>
+  <div class="torten-konfigurator">
+
+    <section class="tk-scene-track" id="tkSceneTrack">
+      <div class="tk-scene-sticky">
+
+        <div class="tk-canvas-wrap"><canvas id="tkGl"></canvas></div>
+        <div class="tk-flash" id="tkFlash"></div>
+
+        <div class="tk-hero" id="tkHero">
+          <h1>Acht Etagen.<br>Eine Geschichte.</h1>
+          <p>Scrollen Sie sich durch jede Schicht unserer Signature‑Torte</p>
+          <div class="tk-scroll-hint"><span>Scrollen</span><span class="tk-line"></span></div>
+        </div>
+
+        <div class="tk-dots" id="tkDots"></div>
+
+        <div class="tk-panel" id="tkPanel">
+          <div class="tk-kicker" id="tkPanelKicker">Etage 1 · Boden</div>
+          <h2 id="tkPanelTitle">Red Velvet</h2>
+          <p id="tkPanelText">Samtig-zarter Kakaobiskuit mit einem Hauch Buttermilch, leicht rot getönt und feinporig gebacken.</p>
+          <div class="tk-tier-tag" id="tkPanelTag">Etage 1 von 8</div>
+        </div>
+
+        <div class="tk-outro" id="tkOutro">
+          <div class="tk-kicker">Acht Etagen · Unendliche Möglichkeiten</div>
+          <h2>Ihre Torte. Ihre Auswahl.</h2>
+          <p>Stellen Sie jetzt Ihre persönliche Traumtorte zusammen</p>
+          <a href="#tkContact" class="tk-cta-btn">Jetzt konfigurieren</a>
+          <div class="tk-outro-hint"><span>Weiter zum Formular</span><span class="tk-chev"></span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="tk-contact" id="tkContact">
+      <div class="tk-contact-inner">
+        <div class="tk-contact-head">
+          <div class="tk-kicker">Anfrage &amp; Konfiguration</div>
+          <h2>Bestellen Sie Ihre Torte einfach und bequem online</h2>
+          <p>Stellen Sie Ihre Traumtorte zusammen — wir melden uns mit einem persönlichen Angebot bei Ihnen.</p>
+        </div>
+
+        <form class="tk-order-form" id="tkOrderForm">
+
+          <!-- ===== Basisangaben ===== -->
+          <div class="tk-field">
+            <label for="tk-datum">Datum der Hochzeit / Feierlichkeit</label>
+            <input type="date" id="tk-datum">
+          </div>
+          <div class="tk-field">
+            <label for="tk-tortenname">Name der Torte</label>
+            <input type="text" id="tk-tortenname" placeholder="z. B. Amélie">
+          </div>
+          <div class="tk-field">
+            <label for="tk-groesse">Größe der Torte</label>
+            <input type="text" id="tk-groesse" placeholder="z. B. 8 Etagen / ca. 120 Portionen">
+          </div>
+          <div class="tk-field">
+            <label for="tk-form">Form der Torte</label>
+            <select id="tk-form">
+              <option value="">nicht gewählt</option>
+              <option>Rund</option>
+              <option>Eckig</option>
+              <option>Herz</option>
+              <option>Oval</option>
+            </select>
+          </div>
+          <div class="tk-field">
+            <label for="tk-deko">Dekorations-/Blumenmaterial</label>
+            <select id="tk-deko">
+              <option value="">nicht gewählt</option>
+              <option>Zuckerblumen</option>
+              <option>Frische Blumen</option>
+              <option>Buttercreme</option>
+              <option>Fondant</option>
+              <option>Marzipan</option>
+            </select>
+          </div>
+          <div class="tk-field">
+            <label for="tk-dekofarbe">Farbe der Dekoration/Blume</label>
+            <input type="text" id="tk-dekofarbe" placeholder="z. B. Elfenbein / Gold">
+          </div>
+          <div class="tk-field">
+            <label for="tk-blumenart">Art (z. B. Rose) der Blume</label>
+            <input type="text" id="tk-blumenart" placeholder="z. B. Rose, Pfingstrose">
+          </div>
+          <div class="tk-field">
+            <label for="tk-gestell">Art des Tortengestells</label>
+            <select id="tk-gestell">
+              <option value="">nicht gewählt</option>
+              <option>Ohne Gestell</option>
+              <option>Etagere</option>
+              <option>Säulengestell</option>
+              <option>Acryl-Gestell</option>
+            </select>
+          </div>
+          <div class="tk-field">
+            <label for="tk-brautpaar">Brautpaar gewünscht</label>
+            <select id="tk-brautpaar">
+              <option value="">nicht gewählt</option>
+              <option>Ja</option>
+              <option>Nein</option>
+            </select>
+          </div>
+          <div class="tk-field">
+            <label for="tk-brautpaarnr">Wenn ja, Nummer angeben</label>
+            <input type="text" id="tk-brautpaarnr" placeholder="Figuren-Nr.">
+          </div>
+
+          <!-- ===== Tortenfüllungen ===== -->
+          <div class="tk-form-section tk-full">
+            <span class="tk-form-section-title">Tortenfüllungen</span>
+          </div>
+
+          <div class="tk-full tk-tiers-block">
+            <div class="tk-tier-diagram" id="tkTierDiagram" aria-hidden="true"></div>
+            <div class="tk-tiers-grid" id="tkTiersGrid"></div>
+          </div>
+
+          <!-- ===== Veranstaltung / Lieferung ===== -->
+          <div class="tk-field tk-full">
+            <label for="tk-ort">Ort der Feierlichkeit</label>
+            <input type="text" id="tk-ort" placeholder="Location / Adresse">
+          </div>
+          <div class="tk-field">
+            <label for="tk-lieferung">Lieferung</label>
+            <select id="tk-lieferung">
+              <option>Nein</option>
+              <option>Ja</option>
+            </select>
+          </div>
+          <div class="tk-field">
+            <label for="tk-zeit">Zeit der Anlieferung / Abholung</label>
+            <input type="text" id="tk-zeit" placeholder="z. B. 14:00 Uhr">
+          </div>
+
+          <!-- ===== Anschrift ===== -->
+          <div class="tk-form-section tk-full">
+            <span class="tk-form-section-title">Anschrift</span>
+          </div>
+
+          <div class="tk-field tk-full">
+            <label>Anrede</label>
+            <div class="tk-choice-row">
+              <label class="tk-choice"><input type="radio" name="tk-anrede" value="Frau"> Frau</label>
+              <label class="tk-choice"><input type="radio" name="tk-anrede" value="Herr"> Herr</label>
             </div>
           </div>
-        </div>
-
-        <div class="cake-swatches-dock" id="cakeSwatchesDock">
-          <div class="flavor-picker">
-            <div class="flavor-group">
-              <h4>Biskuit</h4>
-              <div class="flavor-swatches" id="biskuitSwatches" role="group" aria-label="Biskuit-Sorte wählen"></div>
-            </div>
-            <div class="flavor-group">
-              <h4>Füllung</h4>
-              <div class="flavor-swatches" id="fuellungSwatches" role="group" aria-label="Füllung wählen"></div>
+          <div class="tk-field tk-full">
+            <label for="tk-aname">Name <span class="tk-req">*</span></label>
+            <input type="text" id="tk-aname" placeholder="Ihr Vor- und Zuname" required>
+          </div>
+          <div class="tk-field">
+            <label for="tk-firma">Firma</label>
+            <input type="text" id="tk-firma" placeholder="Firma">
+          </div>
+          <div class="tk-field">
+            <label for="tk-anschrift">Anschrift</label>
+            <input type="text" id="tk-anschrift" placeholder="Ihre Anschrift">
+          </div>
+          <div class="tk-field">
+            <label for="tk-telefon">Telefon <span class="tk-req">*</span></label>
+            <input type="tel" id="tk-telefon" placeholder="Telefon" required>
+          </div>
+          <div class="tk-field">
+            <label>Rückruf</label>
+            <div class="tk-choice-row">
+              <label class="tk-choice"><input type="checkbox" id="tk-rueckruf"> Ja</label>
             </div>
           </div>
-          <p class="cake-configurator-note">Platzhalter-Sorten – die finale Auswahl folgt. Die Zusammenstellung dient nur der Anschauung, ohne Bestellfunktion.</p>
-        </div>
+          <div class="tk-field">
+            <label for="tk-fax">Fax</label>
+            <input type="text" id="tk-fax" placeholder="Ihre Telefaxnummer">
+          </div>
+          <div class="tk-field">
+            <label for="tk-email">E-Mail</label>
+            <input type="email" id="tk-email" placeholder="Ihre E-Mail Adresse">
+          </div>
+          <div class="tk-field tk-full">
+            <label for="tk-nachricht">Nachricht <span class="tk-req">*</span></label>
+            <textarea id="tk-nachricht" placeholder="Ihre Nachricht an uns…" required></textarea>
+          </div>
+
+          <div class="tk-submit-row tk-full">
+            <button type="submit">Anfrage senden</button>
+            <div class="tk-submit-note">Beim Absenden öffnet sich Ihr E-Mail-Programm mit einer vorausgefüllten Anfrage an uns.</div>
+          </div>
+        </form>
       </div>
+    </section>
 
-      <div class="cake-story-panels">
-        <div class="cake-panel" data-panel="intro">
-          <span class="eyebrow">Hochzeits- &amp; Festtagstorten</span>
-          <h2>Ihre Torte, Schicht für Schicht.</h2>
-          <p>Ein Blick hinter die Fondant-Hülle: So ist eine mehrstöckige Torte aus unserer Backstube aufgebaut – scrollen Sie weiter, um sie sich Schicht für Schicht zusammenstellen.</p>
-        </div>
-
-        <div class="cake-panel" data-panel="layers">
-          <h2>So ist sie aufgebaut</h2>
-          <p>Beim Weiterscrollen fahren die Böden auseinander und geben den Blick auf jede einzelne Schicht frei.</p>
-        </div>
-
-        <div class="cake-panel" data-panel="biskuit">
-          <h2>Der Biskuit</h2>
-          <p>Der Biskuit ist der Boden jeder Torte – locker, luftig und Träger von Aroma und Struktur. Je nach Rezeptur reicht seine Textur von feinporig und leicht bis saftig und dicht.</p>
-          <p>Zur Wahl stehen acht Sorten: Sandbiskuit, Schoko, Zitrone, Marmor, Rotwein, Karotte, Mandel und Kokos.</p>
-        </div>
-
-        <div class="cake-panel" data-panel="fuellung">
-          <h2>Die Füllung</h2>
-          <p>Zwischen den Böden sorgt die Füllung für Feuchtigkeit, Süße und den entscheidenden Geschmackskontrast – von cremig-mild bis fruchtig-intensiv.</p>
-          <p>Zur Wahl stehen acht Optionen: Vanillecreme, Buttercreme, Schokocreme, Erdbeercreme, Himbeercreme, Kirschfüllung, Sahnefüllung und Nougatcreme.</p>
-        </div>
-
-        <div class="cake-panel" data-panel="configurator">
-          <h2>Jetzt selbst kombinieren</h2>
-          <p>Wählen Sie Biskuit und Füllung aus – die 3D-Ansicht aktualisiert sich sofort und zeigt Ihre Kombination.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="card">
-        <h3>So bestellen Sie Ihre Traumtorte</h3>
-        <p>Ist Ihre Wunschtorte nicht dabei? Schildern Sie uns Ihre Vorstellungen gerne über unser Kontaktformular oder per E-Mail – mit Bildvorschlag und Preisrahmen, oder vereinbaren Sie einen Termin zur gemeinsamen Zusammenstellung vor Ort.</p>
-        <p>Am Tag der Feier wird Ihre Torte von der Chefin persönlich zusammengestellt und dekoriert und auf Wunsch geliefert.</p>
-        <p style="margin-bottom:0;">
-          Tortenanfragen: <a href="mailto:hochzeitstorten@baeckerei-eichholz.de">hochzeitstorten@baeckerei-eichholz.de</a>
-        </p>
-      </div>
-    </div>
-  </section>
+  </div>
 </main>
 
 <footer class="site-footer">
@@ -146,6 +251,7 @@
           <li><a href="index.html">Startseite</a></li>
           <li><a href="ueber-uns.html">Über uns</a></li>
           <li><a href="sortiment.html">Sortiment</a></li>
+          <li><a href="shop.html">Shop</a></li>
           <li><a href="hochzeitstorten.html">Hochzeitstorten</a></li>
           <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
           <li><a href="kontakt.html">Kontakt &amp; Anfahrt</a></li>
@@ -154,7 +260,7 @@
       <div>
         <h4>Kontakt</h4>
         <ul>
-          <li>Eisenacher Str. 13<br>99831 Amt Creutzburg (Mihla)</li>
+          <li>Eisenacher Str. 13<br>99831 Amt Creuzburg (Mihla)</li>
           <li><a href="tel:+493692442067">(03 69 24) 42 06 7</a></li>
           <li><a href="mailto:info@baeckerei-eichholz.de">info@baeckerei-eichholz.de</a></li>
         </ul>
@@ -162,11 +268,25 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Bäckerei Eichholz. Alle Rechte vorbehalten.</span>
-      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agb.html">AGB</a></span>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/shop-data.js"></script>
+<script src="js/cart.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="module" src="js/torten-konfigurator.js"></script>
 </body>
 </html>

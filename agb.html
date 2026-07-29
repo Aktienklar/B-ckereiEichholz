@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Öffnungszeiten &amp; Filialen – Bäckerei Eichholz</title>
-<meta name="description" content="Öffnungszeiten der Hauptfiliale und Übersicht aller Filialstandorte der Bäckerei Eichholz in Mihla, Eisenach und Erfurt.">
+<title>AGB – Bäckerei Eichholz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -19,76 +18,51 @@
       <img src="assets/img/logo.png" alt="Bäckerei Eichholz Logo">
       <span>Eichholz<small>Der Frische-Bäcker</small></span>
     </a>
-    <div class="header-actions">
-      <button type="button" class="cart-toggle" aria-haspopup="dialog" aria-expanded="false" aria-label="Warenkorb öffnen">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-        <span class="cart-badge is-hidden" aria-hidden="true">0</span>
-      </button>
-      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
-      <nav class="main-nav">
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
+    <nav class="main-nav">
       <ul>
         <li><a href="index.html">Startseite</a></li>
         <li><a href="ueber-uns.html">Über uns</a></li>
         <li><a href="sortiment.html">Sortiment</a></li>
         <li><a href="shop.html">Shop</a></li>
         <li><a href="hochzeitstorten.html">Hochzeitstorten</a></li>
-        <li><a href="oeffnungszeiten.html" aria-current="page">Öffnungszeiten</a></li>
+        <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
     </nav>
-    </div>
   </div>
 </header>
 
 <div class="page-hero">
   <div class="container">
-    <h1>Öffnungszeiten</h1>
-    <p>Hauptfiliale Mihla &amp; alle Filialstandorte auf einen Blick</p>
+    <h1>AGB</h1>
+    <p>Allgemeine Geschäftsbedingungen für den Online-Shop</p>
   </div>
 </div>
 
 <main>
   <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Hauptfiliale Mihla</span>
-        <h2>Wann Sie uns besuchen können</h2>
+    <div class="container" style="max-width: 760px;">
+      <div class="contact-card">
+        <p class="placeholder" style="display:block; font-size:1rem; padding:1rem;">
+          [PLATZHALTER: Diese Seite muss durch rechtsgültige, individuelle
+          Allgemeine Geschäftsbedingungen für den Online-Verkauf von
+          Backwaren ersetzt werden, z. B. erstellt mit einem AGB-Generator
+          (etwa IT-Recht Kanzlei, Trusted Shops) oder in Abstimmung mit
+          einem/einer Rechtsanwält:in. Wichtige Punkte, die dort geregelt
+          werden müssen: Vertragsschluss, Zahlungsarten (Stripe), Preise
+          inkl. Umsatzsteuer, Versandkosten und Liefergebiet,
+          Lieferzeiten, sowie ein Hinweis auf den Ausschluss des
+          gesetzlichen Widerrufsrechts für schnell verderbliche Ware nach
+          § 312g Abs. 2 Nr. 2 BGB (gilt in der Regel für frische
+          Backwaren) – bitte anwaltlich prüfen lassen.]
+        </p>
+        <p>Vertragspartner:<br>
+          Bäckerei Eichholz, Jürgen Eichholz<br>
+          Eisenacher Str. 13, 99831 Amt Creuzburg<br>
+          <a href="mailto:info@baeckerei-eichholz.de">info@baeckerei-eichholz.de</a>
+        </p>
       </div>
-
-      <table class="hours-table">
-        <thead>
-          <tr>
-            <th>Tag</th>
-            <th>Uhrzeit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Montag – Freitag</td><td>05:30 – 18:00 Uhr</td></tr>
-          <tr><td>Samstag</td><td>05:30 – 16:00 Uhr</td></tr>
-          <tr><td>Sonntag</td><td>05:30 – 10:00 Uhr<br>13:00 – 17:00 Uhr</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Unsere Filialen</span>
-        <h2>Unsere Standorte in Mihla, Eisenach &amp; Erfurt</h2>
-        <p>Klicken Sie auf eine Filiale für Adresse, Öffnungszeiten und Anfahrt.</p>
-      </div>
-
-      <ul class="filiale-list" id="filialeGrid" aria-label="Filialübersicht">
-        <!-- Karten werden aus js/filialen.js gerendert (zentrale Filialdaten) -->
-      </ul>
-
-      <p class="notice-box">
-        <strong>Hinweis:</strong> Individuelle Öffnungszeiten je Filiale sind noch nicht für alle Standorte hinterlegt und werden ergänzt, sobald sie feststehen. Für die neue Filiale in Erfurt fehlen Adresse und Öffnungszeiten noch und werden nachgetragen, sobald sie feststehen.
-      </p>
     </div>
   </section>
 </main>
@@ -128,9 +102,6 @@
   </div>
 </footer>
 
-<script src="js/filialen.js"></script>
 <script src="js/main.js"></script>
-<script src="js/shop-data.js"></script>
-<script src="js/cart.js"></script>
 </body>
 </html>
