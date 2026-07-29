@@ -337,7 +337,7 @@ ul { margin: 0; padding: 0; }
   display: flex;
   align-items: center;
   min-height: 88vh;
-  margin-top: calc(-1 * var(--header-h));
+  margin-top: calc(-1 * var(--header-h) - 2px);
   overflow: hidden;
   color: #fff;
 }
@@ -1433,7 +1433,7 @@ body.cart-drawer-open {
     radial-gradient(circle at 88% 130%, rgba(168, 70, 46, 0.3), transparent 50%),
     var(--color-brown-dark);
   color: #f6ead4;
-  margin-top: calc(-1 * var(--header-h));
+  margin-top: calc(-1 * var(--header-h) - 2px);
   padding: calc(var(--header-h) + 3.2rem) 0 3.2rem;
   text-align: center;
   overflow: hidden;
@@ -1547,6 +1547,7 @@ body.cart-drawer-open {
 
   .hero-inner {
     padding-top: calc(var(--header-h) + 1.2rem);
+    padding-bottom: 3rem;
   }
 
   .section--alt {
@@ -1638,7 +1639,7 @@ body.cart-drawer-open {
   position: relative;
   height: 900vh;
   z-index: 2;
-  margin-top: calc(-1 * var(--header-h));
+  margin-top: calc(-1 * var(--header-h) - 2px);
 }
 
 .tk-scene-sticky {
