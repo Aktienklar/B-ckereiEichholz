@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Shop – nur auf shop.html / shop-erfolg.html eingebunden.
+   Shop – eingebunden auf shop.html, shop-erfolg.html und index.html
+   (dort für den Shop-Teaser, der dieselben Produktkarten verwendet).
    Warenkorb-Icon/Badge/Drawer sind seitenübergreifend und liegen daher in
    css/style.css, nicht hier.
    ========================================================================== */
@@ -71,6 +72,28 @@
   justify-content: space-between;
   gap: 0.8rem;
   flex-wrap: wrap;
+}
+
+/* Teaser-Karte auf der Startseite: gleiche Produktkarte, aber komplett
+   verlinkt statt mit Mengen-Stepper und Warenkorb-Button. */
+.card--teaser {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card--teaser .teaser-link {
+  margin-top: 0.6rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-accent-dark);
+}
+
+.card--teaser .teaser-link::after {
+  content: ' →';
+}
+
+.card--teaser:hover .teaser-link {
+  color: var(--color-brown);
 }
 
 .shop-success {

@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/img/logo.png" type="image/png">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/shop.css">
 </head>
 <body>
 
@@ -90,6 +91,20 @@
     </div>
   </section>
 
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Online-Shop</span>
+        <h2>Plätzchen bequem nach Hause bestellen</h2>
+        <p>Unsere Backwaren gibt es nicht nur im Laden: Ausgewählte Sorten versenden wir deutschlandweit – ab 40&nbsp;€ Bestellwert versandkostenfrei.</p>
+      </div>
+      <ul id="shopTeaserGrid" class="grid grid--3 product-grid"></ul>
+      <div style="text-align:center; margin-top:2.5rem;">
+        <a href="shop.html" class="btn btn--primary">Alle Produkte im Shop</a>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <div class="section-heading">
@@ -99,41 +114,6 @@
       </div>
       <div class="instagram-feed">
         <behold-widget feed-id="RWNmiPnK9rQwnWqoXspE"></behold-widget>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Tortengalerie</span>
-        <h2>Eine Auswahl unserer Tortenkunst</h2>
-        <p>Jede Torte ein Unikat – von Hand gestaltet für Hochzeiten, Geburtstage und Festtage.</p>
-      </div>
-      <div class="gallery">
-        <img src="assets/img/torte-galerie-2.jpg" alt="Torte mit roten Rosen und Herzdekor">
-        <img src="assets/img/torte-galerie-3.jpg" alt="Torte mit Kamillenblüten-Dekoration">
-        <img src="assets/img/torte-galerie-6.jpg" alt="Herzförmige Torte mit Strass-Dekoration">
-        <img src="assets/img/torte-galerie-8.jpg" alt="Runde Torte mit roten Rosen">
-      </div>
-      <div style="text-align:center; margin-top:2.5rem;">
-        <a href="sortiment.html#torten" class="btn btn--outline">Zu den Tortenkreationen</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container">
-      <div class="grid grid--2" style="align-items:center;">
-        <div>
-          <span class="eyebrow" style="color:var(--color-accent-dark); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; font-size:0.8rem;">Torten nach Maß</span>
-          <h2>Kuchen und Torten – ganz nach Ihrem Wunsch</h2>
-          <p>Keine Torte gleicht der anderen: Jede Hochzeits-, Geburtstags- oder Festtagstorte wird bei uns als Einzelstück gefertigt. Teilen Sie uns Ihre Wünsche über unser Kontaktformular mit oder rufen Sie uns einfach an – wir beraten Sie gerne.</p>
-          <a href="ueber-uns.html" class="btn btn--primary">Mehr über unsere Geschichte</a>
-        </div>
-        <div class="hero-image">
-          <img src="assets/img/torte-hortensia.jpg" alt="Torte mit Hortensien-Dekoration">
-        </div>
       </div>
     </div>
   </section>
@@ -178,6 +158,7 @@
 <script src="js/main.js"></script>
 <script src="js/shop-data.js"></script>
 <script src="js/cart.js"></script>
+<script src="js/shop-teaser.js"></script>
 <script>
   (function() {
     if(window.__bhldScript)return;window.__bhldScript=true;
