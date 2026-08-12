@@ -185,19 +185,22 @@
       itemsEl.innerHTML = cart.map(function (line) {
         var p = findProduct(line.id);
         if (!p) return '';
+        // Varianten (z.B. American Cookies) sind eigene Produkte mit
+        // gleichem Namen - die Variante gehört daher mit in die Zeile.
+        var label = p.name + (p.variant ? ' – ' + p.variant : '');
         return (
           '<div class="cart-item" data-product-id="' + p.id + '">' +
             '<div class="cart-item-info">' +
-              '<span class="cart-item-name">' + p.name + '</span>' +
+              '<span class="cart-item-name">' + label + '</span>' +
               '<span class="cart-item-unit">' + (p.unit || '') + '</span>' +
             '</div>' +
-            '<div class="qty-stepper" role="group" aria-label="Menge ' + p.name + '">' +
+            '<div class="qty-stepper" role="group" aria-label="Menge ' + label + '">' +
               '<button type="button" class="qty-btn qty-btn--minus" aria-label="Menge verringern">–</button>' +
               '<span class="qty-value" aria-live="polite">' + line.qty + '</span>' +
               '<button type="button" class="qty-btn qty-btn--plus" aria-label="Menge erhöhen">+</button>' +
             '</div>' +
             '<span class="cart-item-price">' + formatEuro(p.priceCents * line.qty) + '</span>' +
-            '<button type="button" class="cart-item-remove" aria-label="' + p.name + ' entfernen">&times;</button>' +
+            '<button type="button" class="cart-item-remove" aria-label="' + label + ' entfernen">&times;</button>' +
           '</div>'
         );
       }).join('');

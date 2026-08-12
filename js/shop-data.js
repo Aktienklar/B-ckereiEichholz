@@ -1,7 +1,17 @@
 /**
- * Zentrale Produktdaten für den Shop. Einzige Quelle für Name, Preis,
- * Beschreibung und Bild je Produkt - shop.js rendert das Produktraster
- * daraus, cart.js zeigt Warenkorb-Positionen daraus an.
+ * Zentrale Produktdaten für den Shop. Einzige Quelle für Name, Variante,
+ * Preis, Füllmenge, Zutaten und Bild je Produkt - shop.js rendert das
+ * Produktraster daraus, cart.js zeigt Warenkorb-Positionen daraus an.
+ *
+ * Felder je Produkt:
+ *   id          eindeutig, identisch mit dem Schlüssel in worker.js
+ *   name        Produktname
+ *   variant     optional, z.B. bei Sorten desselben Produkts
+ *   unit        Füllmenge/Verkaufseinheit ("200 g", "Stück")
+ *   priceCents  Preis in Cent für eine Einheit
+ *   ingredients Zutatenliste (Array, wird auf der Karte kommasepariert
+ *               ausgegeben)
+ *   image       Bildpfad oder null (dann erscheint "Foto folgt")
  *
  * WICHTIG: Diese Preise sind nur für die Anzeige. Der tatsächlich
  * berechnete Preis wird beim Checkout serverseitig aus der PRODUCTS-Map
@@ -11,88 +21,134 @@
  *
  * Neues Produkt ergänzen: Objekt unten im Array hinzufügen UND das
  * gleiche Produkt (gleiche id!) in stripe-worker/worker.js eintragen.
+ * Varianten eines Produkts bekommen jeweils eine eigene id (siehe
+ * American Cookies), damit Warenkorb und Checkout sie auseinanderhalten.
  * Foto ergänzen: image auf den Bildpfad setzen, sonst erscheint ein
  * Platzhalter ("Foto folgt").
  */
 window.EICHHOLZ_PRODUCTS = [
   {
-    id: 'butterplaetzchen',
-    name: 'Butterplätzchen',
-    unit: '250 g',
-    priceCents: 450,
+    id: 'spritzplaetzchen',
+    name: 'Spritzplätzchen',
+    unit: '200 g',
+    priceCents: 420,
     image: null,
-    description: 'Klassische Butterplätzchen nach Familienrezept, von Hand ausgestochen.'
+    ingredients: ['Weizenmehl', 'Margarine', 'Zucker', 'Ei', 'Aroma']
+  },
+  {
+    id: 'american-cookies-schoko',
+    name: 'American Cookies',
+    variant: 'Schokoladenversion (mit Schokoladenstückchen)',
+    unit: 'Stück',
+    priceCents: 185,
+    image: null,
+    ingredients: [
+      'Zucker',
+      'Rohrzucker',
+      'Margarine',
+      'Weizenmehl',
+      'Salz',
+      'Backpulver',
+      'Ei',
+      'Schokoladenstückchen'
+    ]
+  },
+  {
+    id: 'american-cookies-nuss',
+    name: 'American Cookies',
+    variant: 'Nussversion (mit Hasel- u. Walnüssen)',
+    unit: 'Stück',
+    priceCents: 185,
+    image: null,
+    ingredients: [
+      'Zucker',
+      'Rohrzucker',
+      'Margarine',
+      'Weizenmehl',
+      'Salz',
+      'Backpulver',
+      'Ei',
+      'Haselnüsse',
+      'Walnüsse'
+    ]
+  },
+  {
+    id: 'deckelplaetzchen',
+    name: 'Deckelplätzchen',
+    unit: '200 g',
+    priceCents: 420,
+    image: null,
+    ingredients: ['Ei', 'Zucker', 'Weizenmehl', 'Aroma']
+  },
+  {
+    id: 'schwarz-weiss-plaetzchen',
+    name: 'Schwarz/Weiß Plätzchen',
+    unit: '200 g',
+    priceCents: 420,
+    image: null,
+    ingredients: ['Zucker', 'Margarine', 'Weizenmehl', 'Kakao']
+  },
+  {
+    id: 'nussplaetzchen',
+    name: 'Nussplätzchen',
+    unit: '200 g',
+    priceCents: 420,
+    image: null,
+    ingredients: ['Zucker', 'Margarine', 'Weizenmehl', 'Haselnüsse']
   },
   {
     id: 'vanillekipferl',
     name: 'Vanillekipferl',
     unit: '200 g',
-    priceCents: 490,
+    priceCents: 465,
     image: null,
-    description: 'Mürbe Kipferl mit gemahlenen Mandeln, in Vanillezucker gewendet.'
+    ingredients: [
+      'Zucker',
+      'Margarine',
+      'Weizenmehl',
+      'Haselnuss',
+      'Vanillezucker',
+      'Puderzucker'
+    ]
   },
   {
-    id: 'zimtsterne',
-    name: 'Zimtsterne',
-    unit: '200 g',
-    priceCents: 490,
+    id: 'nougatmuscheln',
+    name: 'Nougatmuscheln',
+    unit: 'Stück',
+    priceCents: 200,
     image: null,
-    description: 'Saftige Zimtsterne mit knuspriger Zuckerglasur.'
+    ingredients: ['Margarine', 'Zucker', 'Ei', 'Weizenmehl', 'Nougat', 'Milchpulver']
   },
   {
-    id: 'spekulatius',
-    name: 'Spekulatius',
-    unit: '250 g',
-    priceCents: 420,
+    id: 'strassburger',
+    name: 'Straßburger',
+    unit: 'Stück',
+    priceCents: 130,
     image: null,
-    description: 'Würzige Gewürzplätzchen, dünn und knusprig gebacken.'
+    ingredients: ['Margarine', 'Zucker', 'Wasser', 'Weizenmehl', 'Maisstärke']
   },
   {
     id: 'kokosmakronen',
     name: 'Kokosmakronen',
     unit: '200 g',
-    priceCents: 490,
+    priceCents: 470,
     image: null,
-    description: 'Saftige Makronen aus Kokosraspeln, glutenfrei.'
+    ingredients: ['Kokosraspeln', 'Puderzucker', 'Ei', 'Wasser']
   },
   {
-    id: 'lebkuchen',
-    name: 'Lebkuchen',
-    unit: '300 g',
-    priceCents: 550,
-    image: null,
-    description: 'Traditionelle Lebkuchen mit Honig und Gewürzmischung.'
-  },
-  {
-    id: 'spritzgebaeck',
-    name: 'Spritzgebäck',
-    unit: '250 g',
-    priceCents: 450,
-    image: null,
-    description: 'Feines Buttergebäck, frisch aus dem Spritzbeutel geformt.'
-  },
-  {
-    id: 'mandelhoernchen',
-    name: 'Mandelhörnchen',
+    id: 'muerbteigplaetzchen',
+    name: 'Mürbteigplätzchen',
     unit: '200 g',
-    priceCents: 520,
+    priceCents: 420,
     image: null,
-    description: 'Mit Mandeln bestreute Hörnchen, in Zartbitterschokolade getunkt.'
+    ingredients: ['Margarine', 'Zucker', 'Weizenmehl', 'Hagelzucker']
   },
   {
-    id: 'haselnussmakronen',
-    name: 'Haselnussmakronen',
+    id: 'zimtplaetzchen',
+    name: 'Zimtplätzchen',
     unit: '200 g',
-    priceCents: 490,
+    priceCents: 420,
     image: null,
-    description: 'Locker-nussige Makronen aus gerösteten Haselnüssen.'
-  },
-  {
-    id: 'mischung-klassiker',
-    name: 'Plätzchen-Mischung „Klassiker"',
-    unit: '500 g',
-    priceCents: 890,
-    image: null,
-    description: 'Bunte Auswahl unserer beliebtesten Plätzchensorten in einer Dose.'
+    ingredients: ['Margarine', 'Zucker', 'Weizenmehl', 'Zimt']
   }
 ];

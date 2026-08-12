@@ -21,7 +21,7 @@ baeckerei-eichholz-neu/
 ├── css/style.css            Gesamtes Styling (inkl. Warenkorb-Icon/Drawer)
 ├── css/shop.css              Nur Produktraster-Styles (nur auf shop.html/shop-erfolg.html)
 ├── js/main.js                Mobiles Menü, Sticky-Nav-Scroll-Status, Scroll-Reveal
-├── js/shop-data.js           Produktdaten (Name, Preis, Beschreibung) für den Shop
+├── js/shop-data.js           Produktdaten (Name, Variante, Preis, Füllmenge, Zutaten) für den Shop
 ├── js/cart.js                 Seitenübergreifender Warenkorb (localStorage) + Checkout
 ├── js/shop.js                 Rendert das Produktraster auf shop.html
 └── assets/img/               Logo, Fotos & Hero-Platzhalterbild
@@ -87,7 +87,7 @@ mit hochgeladen, sondern einmalig per `wrangler deploy` ausgerollt, siehe
 | `kontakt.html` | Funktionierendes Kontaktformular (optional) | Reine HTML/CSS/JS-Seite kann Formulare ohne Backend nicht versenden; aktuell nur `mailto:`-Links. Bei Bedarf externen Formular-Dienst (z. B. Formspree, das Formular-Tool des Webhosters) einbinden |
 | Social-Media-Links | Nicht eingebaut | Auf der alten Website waren keine Social-Media-Profile verlinkt |
 | `shop.html`, `agb.html`, `datenschutz.html` | AGB, rechtskonforme Preisangaben (inkl. USt.-Hinweis, Versandkosten) und Erweiterung der Datenschutzerklärung | Neuer Webshop mit echter Zahlungsabwicklung über Stripe – AGB/Datenschutztext von Anwalt oder Generator (z. B. IT-Recht Kanzlei, Trusted Shops) erstellen/prüfen lassen. Backwaren sind nach § 312g Abs. 2 Nr. 2 BGB als schnell verderbliche Ware i. d. R. vom gesetzlichen Widerrufsrecht ausgenommen – dennoch anwaltlich prüfen lassen |
-| `js/shop-data.js` | Echte Produktfotos für alle 10 Plätzchen-Sorten | Aktuell zeigt jede Produktkarte im Shop nur einen Platzhalter ("Foto folgt"), da wie bei den übrigen Fotos (siehe oben) keine echten Plätzchenbilder vorlagen. Sobald Fotos vorhanden sind: Datei unter `assets/img/` ablegen und `image: null` im jeweiligen Produkt auf den Bildpfad setzen |
+| `js/shop-data.js` | Echte Produktfotos für alle 12 Shop-Artikel | Aktuell zeigt jede Produktkarte im Shop nur einen Platzhalter ("Foto folgt"), da wie bei den übrigen Fotos (siehe oben) keine echten Plätzchenbilder vorlagen. Sobald Fotos vorhanden sind: Datei unter `assets/img/` ablegen und `image: null` im jeweiligen Produkt auf den Bildpfad setzen |
 | `stripe-worker/` | Deployment (Cloudflare + Stripe Account, Secret Key) noch nicht durchgeführt | Muss einmalig vom Websitebetreiber selbst ausgeführt werden, siehe `stripe-worker/DEPLOYMENT.md`. Bis dahin funktioniert der "Zur Kasse"-Button im Shop nicht |
 | Fotos von Brot/Brötchen & Backstube | Fehlen komplett | Alle 11 übernommenen Fotos zeigen fertige Torten – auf der alten Seite gab es keine Fotos von Broten, Brötchen oder den Produktionsräumen. Für Startseite/Sortiment wären echte Fotos von Brot, Brötchen und der Backstube wünschenswert |
 | Team-/Inhaberfoto | Fehlt | Auf `ueber-uns.html` wäre ein echtes Foto von Jürgen &amp; Susanna Eichholz oder dem Team passender als die aktuell genutzten Tortenfotos |

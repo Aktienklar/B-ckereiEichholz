@@ -14,11 +14,22 @@
 (function () {
   // Wunsch-Auswahl für den Teaser; fehlt eine id in shop-data.js, wird
   // vorne aufgefüllt, damit der Teaser nie halb leer bleibt.
-  var TEASER_IDS = ['butterplaetzchen', 'zimtsterne', 'mischung-klassiker'];
+  var TEASER_IDS = ['spritzplaetzchen', 'vanillekipferl', 'american-cookies-schoko'];
   var TEASER_COUNT = 3;
 
   function formatEuro(cents) {
     return (cents / 100).toFixed(2).replace('.', ',') + ' €';
+  }
+
+  function ingredientsHtml(p) {
+    if (!p.ingredients || !p.ingredients.length) return '';
+    return '<p class="product-ingredients"><strong>Zutaten:</strong> ' +
+      p.ingredients.join(', ') + '</p>';
+  }
+
+  function variantHtml(p) {
+    if (!p.variant) return '';
+    return '<p class="product-variant"><strong>Variante:</strong> ' + p.variant + '</p>';
   }
 
   function pickProducts(all) {
@@ -49,7 +60,8 @@
       '<a class="card card--product card--teaser" href="shop.html">' +
         media +
         '<h3>' + p.name + '</h3>' +
-        '<p>' + p.description + '</p>' +
+        variantHtml(p) +
+        ingredientsHtml(p) +
         '<p class="product-price">' + formatEuro(p.priceCents) +
           ' <small>/ ' + (p.unit || 'Stück') + ' · inkl. MwSt., zzgl. Versand</small></p>' +
         '<span class="teaser-link">Im Shop ansehen</span>' +

@@ -9,6 +9,17 @@
     return (cents / 100).toFixed(2).replace('.', ',') + ' €';
   }
 
+  function ingredientsHtml(p) {
+    if (!p.ingredients || !p.ingredients.length) return '';
+    return '<p class="product-ingredients"><strong>Zutaten:</strong> ' +
+      p.ingredients.join(', ') + '</p>';
+  }
+
+  function variantHtml(p) {
+    if (!p.variant) return '';
+    return '<p class="product-variant"><strong>Variante:</strong> ' + p.variant + '</p>';
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var grid = document.getElementById('shopGrid');
     if (!grid || !window.EICHHOLZ_PRODUCTS) return;
@@ -24,7 +35,8 @@
         '<div class="card card--product" data-product-id="' + p.id + '">' +
           media +
           '<h3>' + p.name + '</h3>' +
-          '<p>' + p.description + '</p>' +
+          variantHtml(p) +
+          ingredientsHtml(p) +
           '<p class="product-price">' + formatEuro(p.priceCents) +
             ' <small>/ ' + (p.unit || 'Stück') + ' · inkl. MwSt., zzgl. Versand</small></p>' +
           '<div class="product-card-footer">' +

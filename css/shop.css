@@ -49,6 +49,24 @@
   flex-grow: 1;
 }
 
+/* Variante steht direkt unter dem Namen und soll nicht mitwachsen -
+   den freien Platz füllt die Zutatenliste darunter. */
+.product-variant {
+  flex-grow: 0;
+  margin-bottom: 0.5rem;
+  font-size: 0.88rem;
+}
+
+.product-ingredients {
+  font-size: 0.88rem;
+  color: var(--color-text-light);
+}
+
+.product-variant strong,
+.product-ingredients strong {
+  color: var(--color-brown-dark);
+}
+
 .product-price {
   font-family: var(--font-heading);
   font-weight: 700;
