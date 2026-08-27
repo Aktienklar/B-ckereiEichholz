@@ -15,6 +15,12 @@
   var STORAGE_KEY = 'eichholz_cart_v1';
   var WORKER_URL = 'https://eichholz-shop-worker.constantinteck-checkout.workers.dev';
 
+  // Mindestbestellwert in Cent. MUSS mit MIN_ORDER_CENTS in
+  // stripe-worker/wrangler.toml übereinstimmen - dort wird er verbindlich
+  // geprüft, hier nur vorab angezeigt. `npm test` im Worker-Ordner schlägt
+  // an, wenn beide Werte auseinanderlaufen.
+  var MIN_ORDER_CENTS = 1000;
+
   function loadCart() {
     try {
       var raw = window.localStorage.getItem(STORAGE_KEY);
@@ -207,8 +213,19 @@
       }).join('');
     }
 
-    subtotalEl.textContent = 'Zwischensumme: ' + formatEuro(getSubtotalCents()) + ' (zzgl. Versand)';
-    checkoutBtn.disabled = cart.length === 0;
+    var subtotal = getSubtotalCents();
+    subtotalEl.textContent = 'Zwischensumme: ' + formatEuro(subtotal) + ' (zzgl. Versand)';
+
+    // Unter dem Mindestbestellwert bleibt die Kasse gesperrt - mit Angabe,
+    // wie viel noch fehlt, statt einer blossen Fehlermeldung beim Klick.
+    var zuWenig = cart.length > 0 && subtotal < MIN_ORDER_CENTS;
+    if (zuWenig) {
+      showError('Mindestbestellwert ' + formatEuro(MIN_ORDER_CENTS) +
+        ' – es fehlen noch ' + formatEuro(MIN_ORDER_CENTS - subtotal) + '.');
+    } else {
+      hideError();
+    }
+    checkoutBtn.disabled = cart.length === 0 || zuWenig;
   }
 
   function wireItemEvents() {
@@ -267,6 +284,10 @@
   function checkout() {
     var cart = loadCart();
     if (!cart.length) return;
+    if (getSubtotalCents() < MIN_ORDER_CENTS) {
+      showError('Mindestbestellwert ' + formatEuro(MIN_ORDER_CENTS) + '.');
+      return;
+    }
 
     hideError();
     checkoutBtn.disabled = true;
@@ -281,17 +302,28 @@
       })
     })
       .then(function (res) {
-        if (!res.ok) throw new Error('checkout_failed');
-        return res.json();
+        return res.json().then(function (data) {
+          if (!res.ok) {
+            var err = new Error(data.error || 'checkout_failed');
+            err.data = data;
+            throw err;
+          }
+          return data;
+        });
       })
       .then(function (data) {
         if (!data.url) throw new Error('no_url');
         window.location.href = data.url;
       })
-      .catch(function () {
+      .catch(function (err) {
         checkoutBtn.disabled = false;
         checkoutBtn.textContent = 'Zur Kasse';
-        showError('Die Kasse konnte nicht geladen werden. Bitte versuchen Sie es erneut oder rufen Sie uns an.');
+        if (err && err.message === 'below_minimum') {
+          showError('Mindestbestellwert ' +
+            formatEuro((err.data && err.data.minimumCents) || MIN_ORDER_CENTS) + '.');
+        } else {
+          showError('Die Kasse konnte nicht geladen werden. Bitte versuchen Sie es erneut oder rufen Sie uns an.');
+        }
       });
   }
 
