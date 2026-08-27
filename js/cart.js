@@ -7,12 +7,13 @@
  * ein-/ausgeblendet, Fokus-Handling, Scrollbar-Breite kompensiert).
  *
  * WORKER_URL zeigt auf die Cloudflare-Worker-Funktion, die die Stripe
- * Checkout Session erstellt (siehe stripe-worker/). Nach dem Deployment
- * (stripe-worker/DEPLOYMENT.md) die echte *.workers.dev-URL hier eintragen.
+ * Checkout Session erstellt (siehe stripe-worker/). Die URL stammt aus der
+ * Ausgabe von `npx wrangler deploy` und ändert sich nur, wenn der Worker
+ * umbenannt oder in ein anderes Cloudflare-Konto verschoben wird.
  */
 (function () {
   var STORAGE_KEY = 'eichholz_cart_v1';
-  var WORKER_URL = 'https://eichholz-shop-worker.YOUR-SUBDOMAIN.workers.dev';
+  var WORKER_URL = 'https://eichholz-shop-worker.constantinteck-checkout.workers.dev';
 
   function loadCart() {
     try {
