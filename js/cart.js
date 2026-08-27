@@ -341,6 +341,9 @@
   });
 
   window.EichholzCart = {
+    // Auch vom Torten-Konfigurator genutzt, damit die Worker-Adresse nur an
+    // dieser einen Stelle gepflegt werden muss.
+    workerUrl: WORKER_URL,
     addItem: addItem,
     updateQty: updateQty,
     removeItem: removeItem,

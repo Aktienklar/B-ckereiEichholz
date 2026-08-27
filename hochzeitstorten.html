@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/img/logo.png" type="image/png">
-<link rel="stylesheet" href="css/style.css?v=d2cef052">
+<link rel="stylesheet" href="css/style.css?v=7f4f36db">
 </head>
 <body>
 
@@ -203,8 +203,17 @@
           </div>
 
           <div class="tk-submit-row tk-full">
-            <button type="submit">Anfrage senden</button>
-            <div class="tk-submit-note">Beim Absenden öffnet sich Ihr E-Mail-Programm mit einer vorausgefüllten Anfrage an uns.</div>
+            <button type="submit" id="tkPayBtn">Verbindlich bestellen – 50&nbsp;€ Anzahlung</button>
+            <button type="button" id="tkInquiryBtn" class="tk-secondary">Nur unverbindlich anfragen</button>
+            <p class="tk-submit-error notice-box notice-box--compact is-hidden" id="tkPayError"></p>
+            <div class="tk-submit-note">
+              <strong>Verbindlich bestellen:</strong> Sie zahlen jetzt 50&nbsp;€ Anzahlung
+              über Stripe und sichern damit Ihren Termin. Der Restbetrag wird bei
+              Abholung bzw. Lieferung fällig – den Gesamtpreis stimmen wir nach
+              Ihrer Bestellung persönlich mit Ihnen ab.<br><br>
+              <strong>Nur anfragen:</strong> Es öffnet sich Ihr E-Mail-Programm mit
+              einer vorausgefüllten Anfrage. Kostenlos und unverbindlich.
+            </div>
           </div>
         </form>
       </div>
@@ -250,7 +259,7 @@
 
 <script src="js/main.js?v=0fe01f37"></script>
 <script src="js/shop-data.js?v=c943d0c8"></script>
-<script src="js/cart.js?v=d7f23869"></script>
-<script type="module" src="js/torten-konfigurator.js?v=bd673f10"></script>
+<script src="js/cart.js?v=0197f294"></script>
+<script type="module" src="js/torten-konfigurator.js?v=413f198c"></script>
 </body>
 </html>

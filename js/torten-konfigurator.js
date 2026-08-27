@@ -127,21 +127,135 @@ function buildOrderMailBody(){
   return lines.join("\n");
 }
 
+function sammleTortenDaten(){
+  const daten = {
+    datum: fieldValue("tk-datum"),
+    tortenname: fieldValue("tk-tortenname"),
+    groesse: fieldValue("tk-groesse"),
+    form: fieldValue("tk-form"),
+    deko: fieldValue("tk-deko"),
+    dekofarbe: fieldValue("tk-dekofarbe"),
+    blumenart: fieldValue("tk-blumenart"),
+    gestell: fieldValue("tk-gestell"),
+    brautpaar: fieldValue("tk-brautpaar"),
+    brautpaarnr: fieldValue("tk-brautpaarnr"),
+    ort: fieldValue("tk-ort"),
+    lieferung: fieldValue("tk-lieferung"),
+    zeit: fieldValue("tk-zeit"),
+    anrede: radioValue("tk-anrede"),
+    name: fieldValue("tk-aname"),
+    firma: fieldValue("tk-firma"),
+    anschrift: fieldValue("tk-anschrift"),
+    telefon: fieldValue("tk-telefon"),
+    rueckruf: checkboxLabel("tk-rueckruf", "Ja"),
+    fax: fieldValue("tk-fax"),
+    email: fieldValue("tk-email"),
+    nachricht: fieldValue("tk-nachricht"),
+    tiers: []
+  };
+  // Etage 1 unten bis 8 oben - Reihenfolge wie im Formular und in der E-Mail.
+  for(let t=1; t<=NUM_TIERS; t++){
+    daten.tiers.push({
+      bisquit: fieldValue(`tk-bisquit${t}`),
+      fuellung: fieldValue(`tk-fuellung${t}`)
+    });
+  }
+  return daten;
+}
+
 const orderForm = document.getElementById("tkOrderForm");
+const payBtn = document.getElementById("tkPayBtn");
+const inquiryBtn = document.getElementById("tkInquiryBtn");
+const payError = document.getElementById("tkPayError");
+
+function zeigeFehler(text){
+  if(!payError) return;
+  payError.textContent = text;
+  payError.classList.remove("is-hidden");
+}
+
+function versteckeFehler(){
+  if(payError) payError.classList.add("is-hidden");
+}
+
+/* --- Unverbindliche Anfrage: oeffnet wie bisher das E-Mail-Programm --- */
+function sendeAnfrage(){
+  const tortenname = fieldValue("tk-tortenname");
+  const subject = `Tortenanfrage${tortenname ? " – " + tortenname : ""}`;
+  const body = buildOrderMailBody();
+  window.location.href = `mailto:${ORDER_RECIPIENT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  if(inquiryBtn){
+    const original = inquiryBtn.textContent;
+    inquiryBtn.textContent = "Ihr E-Mail-Programm öffnet sich…";
+    setTimeout(()=> inquiryBtn.textContent = original, 3200);
+  }
+}
+
+/* --- Verbindliche Bestellung: Anzahlung ueber Stripe ---
+   Der Betrag wird NICHT hier festgelegt, sondern im Worker
+   (CAKE_DEPOSIT_CENTS) - der Browser kann ihn also nicht beeinflussen. */
+async function zahleAnzahlung(){
+  versteckeFehler();
+
+  // Pflichtfelder wie im Worker: ohne diese kann die Baeckerei nichts anfangen.
+  const fehlend = [];
+  if(!fieldValue("tk-aname")) fehlend.push("Name");
+  if(!fieldValue("tk-telefon")) fehlend.push("Telefon");
+  if(!fieldValue("tk-datum")) fehlend.push("Datum der Feierlichkeit");
+  if(fehlend.length){
+    zeigeFehler("Bitte füllen Sie noch aus: " + fehlend.join(", ") + ".");
+    return;
+  }
+
+  const workerUrl = window.EichholzCart && window.EichholzCart.workerUrl;
+  if(!workerUrl){
+    zeigeFehler("Die Kasse ist gerade nicht erreichbar. Bitte nutzen Sie die unverbindliche Anfrage oder rufen Sie uns an.");
+    return;
+  }
+
+  const original = payBtn.textContent;
+  payBtn.disabled = true;
+  payBtn.textContent = "Einen Moment …";
+
+  try {
+    const res = await fetch(workerUrl + "/create-cake-deposit-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cake: sammleTortenDaten() })
+    });
+    const data = await res.json();
+    if(!res.ok || !data.url){
+      throw new Error(data.error || "checkout_failed");
+    }
+    window.location.href = data.url;
+  } catch (err) {
+    payBtn.disabled = false;
+    payBtn.textContent = original;
+    zeigeFehler("Die Zahlung konnte nicht gestartet werden. Bitte versuchen Sie es erneut, nutzen Sie die unverbindliche Anfrage oder rufen Sie uns an.");
+  }
+}
+
 if(orderForm){
   orderForm.addEventListener("submit", (e)=>{
     e.preventDefault();
-    const btn = e.target.querySelector("button[type=submit]");
-    const original = btn.textContent;
-
-    const tortenname = fieldValue("tk-tortenname");
-    const subject = `Tortenanfrage${tortenname ? " – " + tortenname : ""}`;
-    const body = buildOrderMailBody();
-    const mailtoUrl = `mailto:${ORDER_RECIPIENT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailtoUrl;
-
-    btn.textContent = "Ihr E-Mail-Programm öffnet sich…";
-    setTimeout(()=> btn.textContent = original, 3200);
+    zahleAnzahlung();
   });
+}
+
+if(inquiryBtn){
+  inquiryBtn.addEventListener("click", ()=>{
+    // Die Anfrage ist unverbindlich - hier reicht der Name als Pflichtfeld.
+    if(!fieldValue("tk-aname")){
+      zeigeFehler("Bitte geben Sie zumindest Ihren Namen an.");
+      return;
+    }
+    versteckeFehler();
+    sendeAnfrage();
+  });
+}
+
+// Hinweis, wenn der Kunde die Stripe-Seite abgebrochen hat.
+if(location.search.indexOf("zahlung=abgebrochen") !== -1){
+  zeigeFehler("Die Zahlung wurde abgebrochen – Ihre Eingaben im Formular sind noch da.");
 }
