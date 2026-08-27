@@ -24,8 +24,25 @@ baeckerei-eichholz-neu/
 ├── js/shop-data.js           Produktdaten (Name, Variante, Preis, Füllmenge, Zutaten) für den Shop
 ├── js/cart.js                 Seitenübergreifender Warenkorb (localStorage) + Checkout
 ├── js/shop.js                 Rendert das Produktraster auf shop.html
-└── assets/img/               Logo, Fotos & Hero-Platzhalterbild
+├── assets/img/               Logo, Fotos & Hero-Platzhalterbild
+└── tools/stamp-assets.py     Versionsstempel fuer js/css (vor jedem Push ausfuehren)
 ```
+
+## Vor jedem Hochladen: Versionsstempel setzen
+
+```bash
+python3 tools/stamp-assets.py
+```
+
+GitHub Pages liefert `js/` und `css/` mit `cache-control: max-age=600` aus.
+Ohne diesen Schritt sehen Besucher nach einer Änderung bis zu 10 Minuten lang
+(offene Tabs noch länger) die alte Fassung – im Shop hieße das, dass ein
+geänderter Preis oder der Mindestbestellwert bei ihnen noch nicht gilt.
+
+Das Skript hängt an jede Einbindung einen aus dem Dateiinhalt berechneten
+Stempel an (`js/cart.js?v=d7f23869`). Ändert sich die Datei, ändert sich der
+Stempel und der Browser lädt sofort neu; ändert sich nichts, bleibt der Cache
+wirksam. Ein zweiter Lauf ohne Dateiänderung ändert nichts.
 
 Der Shop-Checkout braucht zusätzlich eine kleine, separat gehostete
 Serverless-Funktion (Cloudflare Worker) für die Stripe-Zahlungsabwicklung –
