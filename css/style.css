@@ -53,6 +53,10 @@ img {
   display: block;
 }
 
+.is-hidden {
+  display: none !important;
+}
+
 a {
   color: var(--color-accent-dark);
   text-decoration: none;
