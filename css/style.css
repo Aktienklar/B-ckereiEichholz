@@ -1641,7 +1641,11 @@ body.cart-drawer-open {
 
 .tk-contact {
   position: relative;
-  background: var(--tk-ivory);
+  /* transparent statt --tk-ivory: die Schraffur liegt auf <body> und wurde
+     von einer deckenden Flaeche verdeckt - so traegt diese Seite denselben
+     Hintergrund wie alle uebrigen. --tk-ivory bleibt fuer Flaechen, die
+     sich bewusst vom Hintergrund abheben sollen (z. B. .tk-summary). */
+  background: transparent;
   padding: 84px 8vw 96px;
 }
 
@@ -1899,4 +1903,54 @@ body.cart-drawer-open {
   .tk-tiers-grid {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* ==========================================================================
+   Rechtstexte (Impressum, Datenschutz, AGB)
+   Laengere Fliesstexte mit vielen Abschnitten - .contact-card allein gibt
+   ihnen keine Gliederung. Nur unter .legal-doc eingehaengt, damit die
+   Typografie der uebrigen Seiten unveraendert bleibt.
+   ========================================================================== */
+.legal-doc {
+  font-size: 0.98rem;
+}
+
+.legal-doc > section + section {
+  margin-top: 2.4rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.legal-doc h2 {
+  font-size: 1.32rem;
+  margin: 0 0 0.9rem;
+}
+
+.legal-doc h3 {
+  font-size: 1.05rem;
+  margin: 1.6rem 0 0.5rem;
+}
+
+.legal-doc p,
+.legal-doc ul {
+  margin: 0 0 0.9rem;
+}
+
+.legal-doc ul {
+  padding-left: 1.2rem;
+}
+
+.legal-doc li {
+  margin-bottom: 0.4rem;
+}
+
+.legal-doc address {
+  font-style: normal;
+  margin-bottom: 0.9rem;
+}
+
+/* Kleingedruckte Randnotiz, z. B. Stand der Fassung. */
+.legal-meta {
+  font-size: 0.86rem;
+  color: var(--color-text-light);
 }

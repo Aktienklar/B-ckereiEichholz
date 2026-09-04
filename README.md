@@ -13,7 +13,7 @@ baeckerei-eichholz-neu/
 ├── sortiment.html           Produktsortiment + Torten
 ├── shop.html                Online-Shop (Plätzchen, Warenkorb, Stripe-Checkout)
 ├── shop-erfolg.html          Landingpage nach erfolgreicher Zahlung
-├── agb.html                  AGB (Platzhalter)
+├── agb.html                  AGB für den Online-Shop
 ├── oeffnungszeiten.html     Öffnungszeiten + Filialliste
 ├── kontakt.html             Kontakt + Anfahrt (Google Maps)
 ├── impressum.html           Impressum
@@ -100,11 +100,11 @@ mit hochgeladen, sondern einmalig per `wrangler deploy` ausgerollt, siehe
 |---|---|---|
 | `oeffnungszeiten.html` | Echte Öffnungszeiten (Mo–Fr, Sa, So/Feiertag) für die Hauptfiliale | Waren auf der alten Website nirgends veröffentlicht |
 | `oeffnungszeiten.html` | Ggf. individuelle Öffnungszeiten je der 16 Filialen | Alte Seite listete nur Adressen, keine Zeiten |
-| `datenschutz.html` | Vollständige, rechtsgültige Datenschutzerklärung | Aktuell nur ein Platzhaltertext – bitte mit Generator oder Rechtsberatung erstellen |
+| `datenschutz.html`, `agb.html`, `impressum.html` | **Anwaltliche Prüfung vor dem Live-Betrieb** | Die Texte sind inhaltlich ausformuliert und decken die Pflichtangaben ab (DSGVO Art. 13, § 5 DDG, § 36 VSBG, Widerrufs-Ausnahmen nach § 312g BGB). Sie wurden aber **nicht juristisch geprüft**. Vor dem Verkauf an Verbraucher von Anwalt oder Fachdienst (z. B. IT-Recht Kanzlei, Trusted Shops) prüfen lassen |
 | `impressum.html` | Prüfung auf Aktualität der übernommenen Pflichtangaben | Daten 1:1 vom alten Impressum übernommen, Stand unbekannt |
 | `kontakt.html` | Funktionierendes Kontaktformular (optional) | Reine HTML/CSS/JS-Seite kann Formulare ohne Backend nicht versenden; aktuell nur `mailto:`-Links. Bei Bedarf externen Formular-Dienst (z. B. Formspree, das Formular-Tool des Webhosters) einbinden |
 | Social-Media-Links | Nicht eingebaut | Auf der alten Website waren keine Social-Media-Profile verlinkt |
-| `shop.html`, `agb.html`, `datenschutz.html` | AGB, rechtskonforme Preisangaben (inkl. USt.-Hinweis, Versandkosten) und Erweiterung der Datenschutzerklärung | Neuer Webshop mit echter Zahlungsabwicklung über Stripe – AGB/Datenschutztext von Anwalt oder Generator (z. B. IT-Recht Kanzlei, Trusted Shops) erstellen/prüfen lassen. Backwaren sind nach § 312g Abs. 2 Nr. 2 BGB als schnell verderbliche Ware i. d. R. vom gesetzlichen Widerrufsrecht ausgenommen – dennoch anwaltlich prüfen lassen |
+| `agb.html` ↔ `stripe-worker/worker.js` | Beträge synchron halten | Die AGB nennen Mindestbestellwert 10 €, Versand 4,90 €, versandkostenfrei ab 40 € und 50 € Tortenanzahlung. Diese Werte stehen im Worker als Env-Variablen (`MIN_ORDER_CENTS`, `SHIPPING_FLAT_CENTS`, `FREE_SHIPPING_THRESHOLD_CENTS`, `CAKE_DEPOSIT_CENTS`). Wird dort etwas geändert, müssen die AGB mitgeändert werden |
 | `stripe-worker/` | Deployment (Cloudflare + Stripe Account, Secret Key) noch nicht durchgeführt | Muss einmalig vom Websitebetreiber selbst ausgeführt werden, siehe `stripe-worker/DEPLOYMENT.md`. Bis dahin funktioniert der "Zur Kasse"-Button im Shop nicht |
 | Fotos von Brot/Brötchen & Backstube | Fehlen komplett | Alle 11 übernommenen Fotos zeigen fertige Torten – auf der alten Seite gab es keine Fotos von Broten, Brötchen oder den Produktionsräumen. Für Startseite/Sortiment wären echte Fotos von Brot, Brötchen und der Backstube wünschenswert |
 | Team-/Inhaberfoto | Fehlt | Auf `ueber-uns.html` wäre ein echtes Foto von Jürgen &amp; Susanna Eichholz oder dem Team passender als die aktuell genutzten Tortenfotos |
