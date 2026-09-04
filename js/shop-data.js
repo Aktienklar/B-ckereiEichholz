@@ -32,7 +32,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Spritzplätzchen',
     unit: '200 g',
     priceCents: 420,
-    image: null,
+    image: 'assets/img/produkte/spritzplaetzchen.jpg',
     ingredients: ['Weizenmehl', 'Margarine', 'Zucker', 'Ei', 'Aroma']
   },
   {
@@ -41,7 +41,7 @@ window.EICHHOLZ_PRODUCTS = [
     variant: 'Schokoladenversion (mit Schokoladenstückchen)',
     unit: 'Stück',
     priceCents: 185,
-    image: null,
+    image: 'assets/img/produkte/american-cookies-schoko.jpg',
     ingredients: [
       'Zucker',
       'Rohrzucker',
@@ -59,7 +59,7 @@ window.EICHHOLZ_PRODUCTS = [
     variant: 'Nussversion (mit Hasel- u. Walnüssen)',
     unit: 'Stück',
     priceCents: 185,
-    image: null,
+    image: 'assets/img/produkte/american-cookies-nuss.jpg',
     ingredients: [
       'Zucker',
       'Rohrzucker',
@@ -77,7 +77,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Deckelplätzchen',
     unit: '200 g',
     priceCents: 420,
-    image: null,
+    image: 'assets/img/produkte/deckelplaetzchen.jpg',
     ingredients: ['Ei', 'Zucker', 'Weizenmehl', 'Aroma']
   },
   {
@@ -85,7 +85,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Schwarz/Weiß Plätzchen',
     unit: '200 g',
     priceCents: 420,
-    image: null,
+    image: 'assets/img/produkte/schwarz-weiss-plaetzchen.jpg',
     ingredients: ['Zucker', 'Margarine', 'Weizenmehl', 'Kakao']
   },
   {
@@ -93,7 +93,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Nussplätzchen',
     unit: '200 g',
     priceCents: 420,
-    image: null,
+    image: 'assets/img/produkte/nussplaetzchen.jpg',
     ingredients: ['Zucker', 'Margarine', 'Weizenmehl', 'Haselnüsse']
   },
   {
@@ -101,7 +101,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Vanillekipferl',
     unit: '200 g',
     priceCents: 465,
-    image: null,
+    image: 'assets/img/produkte/vanillekipferl.jpg',
     ingredients: [
       'Zucker',
       'Margarine',
@@ -116,7 +116,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Nougatmuscheln',
     unit: 'Stück',
     priceCents: 200,
-    image: null,
+    image: 'assets/img/produkte/nougatmuscheln.jpg',
     ingredients: ['Margarine', 'Zucker', 'Ei', 'Weizenmehl', 'Nougat', 'Milchpulver']
   },
   {
@@ -124,7 +124,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Straßburger',
     unit: 'Stück',
     priceCents: 130,
-    image: null,
+    image: 'assets/img/produkte/strassburger.jpg',
     ingredients: ['Margarine', 'Zucker', 'Wasser', 'Weizenmehl', 'Maisstärke']
   },
   {
@@ -132,7 +132,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Kokosmakronen',
     unit: '200 g',
     priceCents: 470,
-    image: null,
+    image: 'assets/img/produkte/kokosmakronen.jpg',
     ingredients: ['Kokosraspeln', 'Puderzucker', 'Ei', 'Wasser']
   },
   {
@@ -140,7 +140,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Mürbteigplätzchen',
     unit: '200 g',
     priceCents: 420,
-    image: null,
+    image: 'assets/img/produkte/muerbteigplaetzchen.jpg',
     ingredients: ['Margarine', 'Zucker', 'Weizenmehl', 'Hagelzucker']
   },
   {
@@ -148,7 +148,7 @@ window.EICHHOLZ_PRODUCTS = [
     name: 'Zimtplätzchen',
     unit: '200 g',
     priceCents: 420,
-    image: null,
+    image: 'assets/img/produkte/zimtplaetzchen.jpg',
     ingredients: ['Margarine', 'Zucker', 'Weizenmehl', 'Zimt']
   }
 ];

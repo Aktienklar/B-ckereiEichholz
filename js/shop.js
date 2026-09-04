@@ -25,8 +25,13 @@
     if (!grid || !window.EICHHOLZ_PRODUCTS) return;
 
     grid.innerHTML = window.EICHHOLZ_PRODUCTS.map(function (p) {
+      // loading="lazy": das Raster zeigt alle 12 Produkte auf einmal, die
+      // unteren Fotos werden erst beim Scrollen geladen. Kein width/height-
+      // Attribut - das setzt eine feste Hoehe und wuerde die aspect-ratio
+      // 4/3 aus shop.css aushebeln, die den Platz ohnehin reserviert.
       var media = p.image
-        ? '<img class="product-photo" src="' + p.image + '" alt="' + p.name + '">'
+        ? '<img class="product-photo" src="' + p.image + '" alt="' + p.name +
+            '" loading="lazy" decoding="async">'
         : '<div class="product-photo product-photo--placeholder" aria-hidden="true">' +
             '<span>🍪</span><span class="product-photo-label">Foto folgt</span></div>';
 
