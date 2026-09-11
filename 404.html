@@ -3,8 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Öffnungszeiten &amp; Filialen – Bäckerei Eichholz</title>
-<meta name="description" content="Öffnungszeiten der Hauptfiliale und Übersicht aller Filialstandorte der Bäckerei Eichholz in Mihla, Eisenach und Erfurt.">
+<script>
+  // GitHub Pages zeigt diese Seite für jede unbekannte Adresse, auch in
+  // Unterordnern. Daher den Basis-Pfad setzen, damit CSS, Bilder und Links
+  // stimmen - unter aktienklar.github.io liegt die Seite im Projektordner,
+  // unter der eigenen Domain im Wurzelverzeichnis.
+  (function () {
+    var BASE = /github\.io$/.test(location.hostname) ? '/B-ckereiEichholz/' : '/';
+    document.write('<base href="' + BASE + '">');
+
+    // Adressen der früheren WordPress-Seite (aus deren Sitemap) auf die
+    // passende neue Seite umleiten, damit alte Links und Suchergebnisse
+    // nach der Domain-Umstellung weiter funktionieren.
+    var ALTE_ADRESSEN = {
+      'ueber-uns': 'ueber-uns.html',
+      'wo-kommt-unser-brot-denn-her': 'ueber-uns.html',
+      'produktsortiment': 'sortiment.html',
+      'template-item/produktsortiment': 'sortiment.html',
+      'torten/kinder-und-festtagstorten': 'sortiment.html',
+      'torten': 'hochzeitstorten.html',
+      'torten/hochzeitstorten': 'hochzeitstorten.html',
+      'torten/bestellformular': 'hochzeitstorten.html',
+      'torten/tortendekoration': 'hochzeitstorten.html',
+      'filialen': 'oeffnungszeiten.html',
+      'unsere-neue-filiale': 'oeffnungszeiten.html',
+      'kontakt': 'kontakt.html',
+      'impressum': 'impressum.html',
+      'datenschutz': 'datenschutz.html',
+      'cookie-richtlinie-eu': 'datenschutz.html'
+    };
+    var pfad = location.pathname.slice(BASE.length).replace(/\/+$/, '');
+    if (ALTE_ADRESSEN[pfad]) {
+      location.replace(BASE + ALTE_ADRESSEN[pfad]);
+    }
+  })();
+</script>
+<title>Seite nicht gefunden – Bäckerei Eichholz</title>
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -19,75 +54,36 @@
       <img src="assets/img/logo.png" alt="Bäckerei Eichholz Logo">
       <span>Eichholz<small>Der Frische-Bäcker</small></span>
     </a>
-    <div class="header-actions">
-      <button type="button" class="cart-toggle" aria-haspopup="dialog" aria-expanded="false" aria-label="Warenkorb öffnen">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-        <span class="cart-badge is-hidden" aria-hidden="true">0</span>
-      </button>
-      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
-      <nav class="main-nav">
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"></button>
+    <nav class="main-nav">
       <ul>
         <li><a href="index.html">Startseite</a></li>
         <li><a href="ueber-uns.html">Über uns</a></li>
         <li><a href="sortiment.html">Sortiment</a></li>
         <li><a href="shop.html">Shop</a></li>
         <li><a href="hochzeitstorten.html">Hochzeitstorten</a></li>
-        <li><a href="oeffnungszeiten.html" aria-current="page">Öffnungszeiten</a></li>
+        <li><a href="oeffnungszeiten.html">Öffnungszeiten</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
     </nav>
-    </div>
   </div>
 </header>
 
 <div class="page-hero">
   <div class="container">
-    <h1>Öffnungszeiten</h1>
-    <p>Hauptfiliale Mihla &amp; alle Filialstandorte auf einen Blick</p>
+    <h1>Seite nicht gefunden</h1>
+    <p>Diese Adresse gibt es auf unserer Website nicht (mehr).</p>
   </div>
 </div>
 
 <main>
   <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Hauptfiliale Mihla</span>
-        <h2>Wann Sie uns besuchen können</h2>
-      </div>
-
-      <table class="hours-table">
-        <thead>
-          <tr>
-            <th>Tag</th>
-            <th>Uhrzeit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Montag – Freitag</td><td>05:30 – 18:00 Uhr</td></tr>
-          <tr><td>Samstag</td><td>05:30 – 16:00 Uhr</td></tr>
-          <tr><td>Sonntag</td><td>05:30 – 10:00 Uhr<br>13:00 – 17:00 Uhr</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Unsere Filialen</span>
-        <h2>Unsere Standorte in Mihla, Eisenach &amp; Erfurt</h2>
-        <p>Klicken Sie auf eine Filiale für Adresse, Öffnungszeiten und Anfahrt.</p>
-      </div>
-
-      <ul class="filiale-list" id="filialeGrid" aria-label="Filialübersicht">
-        <!-- Karten werden aus js/filialen.js gerendert (zentrale Filialdaten) -->
-      </ul>
-
-      <p class="notice-box">
-        <strong>Hinweis:</strong> Die Öffnungszeiten der Filiale Bahnhofstraße in Eisenach werden ergänzt, sobald sie feststehen.
+    <div class="container" style="max-width: 760px; text-align: center;">
+      <p>Vielleicht hilft Ihnen einer dieser Links weiter:</p>
+      <p style="display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+        <a class="btn btn--primary" href="index.html">Zur Startseite</a>
+        <a class="btn btn--outline" href="oeffnungszeiten.html">Öffnungszeiten &amp; Filialen</a>
+        <a class="btn btn--outline" href="shop.html">Zum Shop</a>
       </p>
     </div>
   </section>
@@ -128,9 +124,6 @@
   </div>
 </footer>
 
-<script src="js/filialen.js?v=52452c32"></script>
 <script src="js/main.js?v=0fe01f37"></script>
-<script src="js/shop-data.js?v=3d29de62"></script>
-<script src="js/cart.js?v=0197f294"></script>
 </body>
 </html>

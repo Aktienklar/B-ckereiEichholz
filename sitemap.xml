@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Adressen unter der eigenen Domain: greift erst, wenn baeckerei-eichholz.de
+     auf diese Seite umgestellt ist. Bestell-Bestaetigungen (shop-erfolg,
+     torten-erfolg) sind bewusst nicht enthalten, sie tragen noindex. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://baeckerei-eichholz.de/</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/ueber-uns.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/sortiment.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/shop.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/hochzeitstorten.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/oeffnungszeiten.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/kontakt.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/impressum.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/datenschutz.html</loc></url>
+  <url><loc>https://baeckerei-eichholz.de/agb.html</loc></url>
+</urlset>

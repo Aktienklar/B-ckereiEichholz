@@ -17,15 +17,19 @@ baeckerei-eichholz-neu/
 ├── oeffnungszeiten.html     Öffnungszeiten + Filialliste
 ├── kontakt.html             Kontakt + Anfahrt (Google Maps)
 ├── impressum.html           Impressum
-├── datenschutz.html         Datenschutzerklärung (Platzhalter)
+├── datenschutz.html         Datenschutzerklärung
+├── 404.html                 Fehlerseite; leitet alte WordPress-Adressen (z. B. /filialen/) auf die neuen Seiten um
 ├── css/style.css            Gesamtes Styling (inkl. Warenkorb-Icon/Drawer)
 ├── css/shop.css              Nur Produktraster-Styles (nur auf shop.html/shop-erfolg.html)
 ├── js/main.js                Mobiles Menü, Sticky-Nav-Scroll-Status, Scroll-Reveal
 ├── js/shop-data.js           Produktdaten (Name, Variante, Preis, Füllmenge, Zutaten) für den Shop
 ├── js/cart.js                 Seitenübergreifender Warenkorb (localStorage) + Checkout
 ├── js/shop.js                 Rendert das Produktraster auf shop.html
-├── assets/img/               Logo, Fotos & Hero-Platzhalterbild
+├── js/filialen.js            Filialdaten (Adresse, Öffnungszeiten, Fotos) + Detailansicht
+├── assets/img/               Logo, Startbild, Icons, Torten- und Inhaberfoto
 ├── assets/img/produkte/      Produktfotos für den Shop (4:3, 900 px breit)
+├── assets/img/filialen/      Filialfotos (<id>-<n>.jpg, max. 1200 px)
+├── robots.txt, sitemap.xml   Nennen baeckerei-eichholz.de - greifen erst nach der Domain-Umstellung
 └── tools/stamp-assets.py     Versionsstempel fuer js/css (vor jedem Push ausfuehren)
 ```
 
@@ -98,25 +102,21 @@ mit hochgeladen, sondern einmalig per `wrangler deploy` ausgerollt, siehe
 
 | Datei | Was fehlt | Grund |
 |---|---|---|
-| `oeffnungszeiten.html` | Echte Öffnungszeiten (Mo–Fr, Sa, So/Feiertag) für die Hauptfiliale | Waren auf der alten Website nirgends veröffentlicht |
-| `oeffnungszeiten.html` | Ggf. individuelle Öffnungszeiten je der 16 Filialen | Alte Seite listete nur Adressen, keine Zeiten |
-| `datenschutz.html`, `agb.html`, `impressum.html` | **Anwaltliche Prüfung vor dem Live-Betrieb** | Die Texte sind inhaltlich ausformuliert und decken die Pflichtangaben ab (DSGVO Art. 13, § 5 DDG, § 36 VSBG, Widerrufs-Ausnahmen nach § 312g BGB). Sie wurden aber **nicht juristisch geprüft**. Vor dem Verkauf an Verbraucher von Anwalt oder Fachdienst (z. B. IT-Recht Kanzlei, Trusted Shops) prüfen lassen |
+| Domain | `baeckerei-eichholz.de` zeigt noch auf die alte WordPress-Seite | Die neue Seite läuft bisher nur unter `aktienklar.github.io/B-ckereiEichholz`. DNS beim Domain-Anbieter auf GitHub Pages umstellen und in den Repo-Einstellungen unter Pages die Custom Domain eintragen. Danach im Stripe-Worker die erlaubte Herkunft und die Rücksprung-Adressen von `aktienklar.github.io` auf die Domain umstellen und neu deployen. `robots.txt`, `sitemap.xml` und die Weiterleitungen alter Adressen in `404.html` wirken erst ab dann |
+| `js/filialen.js` | Öffnungszeiten der Filiale Bahnhofstraße | Die Zeiten von Karlstraße, Gothaer Straße und Schlösserstraße stammen von den Aushängen an den Filialtüren (Fotos vom 10./11.09.2026, vom Betrieb bestätigt) |
+| `datenschutz.html`, `agb.html`, `impressum.html` | **Anwaltliche Prüfung vor dem Live-Betrieb** | Die Texte sind inhaltlich ausformuliert und decken die Pflichtangaben ab (DSGVO Art. 13, § 5 DDG, § 36 VSBG, Widerrufs-Ausnahmen nach § 312g BGB). Sie wurden aber **nicht juristisch geprüft**. Vor dem Verkauf an Verbraucher von Anwalt oder Fachdienst (z. B. IT-Recht Kanzlei, Trusted Shops) prüfen lassen. Dabei auch klären, ob das Instagram-Widget (Behold) auf der Startseite ohne Einwilligung laden darf |
 | `impressum.html` | Prüfung auf Aktualität der übernommenen Pflichtangaben | Daten 1:1 vom alten Impressum übernommen, Stand unbekannt |
 | `kontakt.html` | Funktionierendes Kontaktformular (optional) | Reine HTML/CSS/JS-Seite kann Formulare ohne Backend nicht versenden; aktuell nur `mailto:`-Links. Bei Bedarf externen Formular-Dienst (z. B. Formspree, das Formular-Tool des Webhosters) einbinden |
-| Social-Media-Links | Nicht eingebaut | Auf der alten Website waren keine Social-Media-Profile verlinkt |
 | `agb.html` ↔ `stripe-worker/worker.js` | Beträge synchron halten | Die AGB nennen Mindestbestellwert 10 €, Versand 4,90 €, versandkostenfrei ab 40 € und 50 € Tortenanzahlung. Diese Werte stehen im Worker als Env-Variablen (`MIN_ORDER_CENTS`, `SHIPPING_FLAT_CENTS`, `FREE_SHIPPING_THRESHOLD_CENTS`, `CAKE_DEPOSIT_CENTS`). Wird dort etwas geändert, müssen die AGB mitgeändert werden |
-| `stripe-worker/` | Deployment (Cloudflare + Stripe Account, Secret Key) noch nicht durchgeführt | Muss einmalig vom Websitebetreiber selbst ausgeführt werden, siehe `stripe-worker/DEPLOYMENT.md`. Bis dahin funktioniert der "Zur Kasse"-Button im Shop nicht |
-| Fotos von Brot/Brötchen & Backstube | Fehlen komplett | Alle 11 übernommenen Fotos zeigen fertige Torten – auf der alten Seite gab es keine Fotos von Broten, Brötchen oder den Produktionsräumen. Für Startseite/Sortiment wären echte Fotos von Brot, Brötchen und der Backstube wünschenswert |
+| `stripe-worker/` | Echte Testbestellung im Shop und eine Tortenanzahlung | Der Worker ist deployt und antwortet. Offen ist, ob Stripe im Live-Modus läuft und die Bestätigungs-E-Mails ankommen - das lässt sich nur mit einer echten Bestellung prüfen |
 | `impressum.html` | Nach dem Inhaberwechsel auf Tim Eichholz prüfen: Berufsbezeichnung „Bäckermeister“ und USt-IdNr. | Beide Angaben stammen noch aus der Zeit von Jürgen Eichholz. Bei einem Einzelunternehmen hängen sie in der Regel an der Person des Inhabers |
-| `assets/img/hero-placeholder.svg` | Durch echtes Foto ersetzen | Vollbild-Hero auf der Startseite nutzt aktuell eine selbst gestaltete Illustration (Brot-Motiv in den Markenfarben), da kein echtes Foto von Brot/Backstube vorlag. Einfach ein hochauflösendes Foto (mind. 1600×900px, Querformat) unter demselben Dateinamen ablegen oder den Bildpfad in `index.html` (Klasse `hero-media`) anpassen |
-
 ## Übernommene Original-Inhalte
 
 Direkt von der alten Website übernommen (kein Platzhalter nötig):
 
 - **Logo**: `assets/img/logo.png`
-- **Fotos**: `assets/img/torte-galerie-1.jpg` bis `torte-galerie-8.jpg` sowie `torte-hortensia.jpg`, `torte-kroenchen.jpg`, `torte-2645.jpg` – alles Fotos fertiger Torten aus der bisherigen Bildergalerie bzw. der Torten-Unterseite (keine Brot-/Backstubenfotos vorhanden, siehe Platzhalter-Tabelle oben)
-- **Texte**: Firmengeschichte, Sortimentskategorien, Torten-Bestellprozess, alle Adressen der 16 Filialen, Kontaktdaten (Telefon, Fax, E-Mail), Impressum-Pflichtangaben
+- **Fotos**: `assets/img/torte-galerie-1.jpg` bis `torte-galerie-8.jpg` sowie `torte-hortensia.jpg`, `torte-kroenchen.jpg`, `torte-2645.jpg` – alles Fotos fertiger Torten aus der bisherigen Bildergalerie bzw. der Torten-Unterseite. Filialfotos und das Inhaberfoto kamen später direkt vom Betrieb
+- **Texte**: Firmengeschichte, Sortimentskategorien, Torten-Bestellprozess, Adressen der Filialen (von den 14 auf der alten Seite bestehen noch 5), Kontaktdaten (Telefon, Fax, E-Mail), Impressum-Pflichtangaben
 
 Alle Bild-Dateien liegen bereits lokal in `assets/img/` – es muss nichts mehr
 von der alten Domain nachgeladen werden.

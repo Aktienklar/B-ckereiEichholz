@@ -69,7 +69,10 @@
     filiale(
       'eisenach-karlstr', 'Filiale', 'Eisenach',
       { street: 'Karlstr. 65', zip: '99826', city: 'Eisenach' },
-      null,
+      [
+        { day: 'Montag – Freitag', hours: '07:00 – 18:00 Uhr' },
+        { day: 'Samstag', hours: '07:30 – 13:00 Uhr' }
+      ],
       photos('eisenach-karlstr', [
         'Theke mit Brötchen und Gebäck in der Filiale Karlstraße',
         'Verkaufstheke der Filiale Karlstraße',
@@ -93,7 +96,10 @@
     filiale(
       'eisenach-gothaer', 'Filiale', 'Eisenach',
       { street: 'Gothaer Str. 1', zip: '99817', city: 'Eisenach' },
-      null,
+      [
+        { day: 'Montag – Freitag', hours: '07:00 – 18:00 Uhr' },
+        { day: 'Samstag', hours: '07:00 – 14:00 Uhr' }
+      ],
       photos('eisenach-gothaer', [
         'Verkaufstheke der Filiale Gothaer Straße',
         'Theke mit Brot und Kuchen in der Filiale Gothaer Straße',
@@ -104,7 +110,11 @@
     filiale(
       'erfurt-schloesserstrasse', 'Filiale', 'Erfurt',
       { street: 'Schlösserstraße 89', zip: '99084', city: 'Erfurt' },
-      null,
+      [
+        { day: 'Montag – Freitag', hours: '08:00 – 19:00 Uhr' },
+        { day: 'Samstag', hours: '08:00 – 18:00 Uhr' },
+        { day: 'Sonntag', hours: '08:00 – 14:00 Uhr' }
+      ],
       photos('erfurt-schloesserstrasse', [
         'Schaufenster der Filiale Schlösserstraße in Erfurt',
         'Fensterplätze mit Blick auf die Schlösserstraße',
