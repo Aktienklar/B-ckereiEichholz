@@ -5,10 +5,9 @@
  * daraus gerendert, damit nichts doppelt gepflegt werden muss.
  *
  * Neue Filiale ergänzen: Objekt unten im FILIALEN-Array hinzufügen.
- * Fehlende Fotos ergänzen: images-Array mit { src, alt } befüllen.
+ * Fotos ergänzen: Dateien als assets/img/filialen/<id>-<n>.jpg ablegen und
+ * per photos(id, [Alternativtexte]) eintragen - Reihenfolge = Nummer n.
  * Fehlende Öffnungszeiten ergänzen: openingHours-Array mit { day, hours } befüllen.
- * Adresse der zweiten Erfurt-Filiale ergänzen: address-Objekt befüllen und
- * isComplete auf true setzen, sobald sie feststeht.
  */
 (function () {
 
@@ -34,13 +33,19 @@
       name: name,
       address: address,
       openingHours: openingHours || null,
-      images: images || [], // { src, alt } - noch keine echten Filialfotos hinterlegt, siehe Hinweis oben
+      images: images || [], // { src, alt }, siehe photos()
       // placeUrl: offizieller Google-Maps-Eintrag der Filiale (falls bekannt) -
       // wird bevorzugt verlinkt, sonst automatisch aus der Adresse berechnet.
       googleMapsUrl: placeUrl || googleMapsSearchUrl(address),
       googleMapsDirectionsUrl: googleMapsDirectionsUrl(address),
       isComplete: !!address
     };
+  }
+
+  function photos(id, alts) {
+    return alts.map(function (alt, i) {
+      return { src: 'assets/img/filialen/' + id + '-' + (i + 1) + '.jpg', alt: alt };
+    });
   }
 
   var FILIALEN = [
@@ -52,38 +57,70 @@
         { day: 'Samstag', hours: '05:30 – 16:00 Uhr' },
         { day: 'Sonntag', hours: '05:30 – 10:00 Uhr, 13:00 – 17:00 Uhr' }
       ],
-      null,
-      'https://www.google.com/maps/place/B%C3%A4ckerei+Eichholz/@50.977186,10.4693421,80090m/data=!3m2!1e3!5s0x47a47295f99269e1:0x56711cf864c77142!4m10!1m2!2m1!1sb%C3%A4ckerei+eichholz!3m6!1s0x47a4732a0cce5b5f:0x9a8a2da591a35e29!8m2!3d50.977186!4d11.0296448!15sChJiw6Rja2VyZWkgZWljaGhvbHoiA4gBAVoUIhJiw6Rja2VyZWkgZWljaGhvbHqSAQZiYWtlcnmaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMjVTVFUxSVJuRk9WbkIwV0RKSmVXTlhVWGxXUm5CVVZsZHdXRlpIWXhBQuABAPoBBAgAED0!16s%2Fg%2F11q2qkyfm8?entry=ttu&g_ep=EgoyMDI2MDcyNi4wIKXMDSoASAFQAw%3D%3D'
+      photos('mihla', [
+        'Verkaufstheke der Hauptfiliale Mihla mit Brot und Gebäck',
+        'Theke mit Brot, Brötchen und Kuchen in Mihla',
+        'Lange Verkaufstheke der Hauptfiliale Mihla',
+        'Café-Bereich der Hauptfiliale Mihla',
+        'Sitzecke im Café der Hauptfiliale Mihla'
+      ]),
+      'https://www.google.com/maps/place/B%C3%A4ckerei+Eichholz/@51.0749405,9.7655539,79921m/data=!3m1!1e3!4m10!1m2!2m1!1sb%C3%A4ckerei+eichholz!3m6!1s0x47a490b951d436d7:0x754c019c6c9a4041!8m2!3d51.0749405!4d10.3258566!15sChJiw6Rja2VyZWkgZWljaGhvbHoiA4gBAVoUIhJiw6Rja2VyZWkgZWljaGhvbHqSAQZiYWtlcnmaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMjFWZDFsdVVtbFVTRkpRVVRCb1psbHJOVVJZTVd4NFVWZHdWbTk2WVhoQuABAPoBBAgAEEo!16s%2Fg%2F1w0qzy4t?entry=ttu&g_ep=EgoyMDI2MDcyNi4wIKXMDSoASAFQAw%3D%3D'
     ),
     filiale(
       'eisenach-karlstr', 'Filiale', 'Eisenach',
       { street: 'Karlstr. 65', zip: '99826', city: 'Eisenach' },
-      null
+      null,
+      photos('eisenach-karlstr', [
+        'Theke mit Brötchen und Gebäck in der Filiale Karlstraße',
+        'Verkaufstheke der Filiale Karlstraße',
+        'Innenraum der Filiale Karlstraße',
+        'Eingang der Filiale Karlstraße',
+        'Sitzplätze vor der Filiale Karlstraße'
+      ])
     ),
     filiale(
       'eisenach-bahnhofstr', 'Filiale', 'Eisenach',
       { street: 'Bahnhofstraße 23', zip: '99817', city: 'Eisenach' },
       null,
-      null,
+      photos('eisenach-bahnhofstr', [
+        'Brotregal und Theke in der Filiale Bahnhofstraße',
+        'Verkaufstheke der Filiale Bahnhofstraße',
+        'Theke und Kuchenvitrine in der Filiale Bahnhofstraße',
+        'Schaufenster der Filiale Bahnhofstraße'
+      ]),
       'https://www.google.com/maps/place/B%C3%A4ckerei+Eichholz/@51.0749405,9.7655539,79921m/data=!3m1!1e3!4m10!1m2!2m1!1sb%C3%A4ckerei+eichholz!3m6!1s0x47a49c7ff88e07d9:0x4d336b0601e6db6a!8m2!3d50.9750624!4d10.3246164!15sChJiw6Rja2VyZWkgZWljaGhvbHoiA4gBAVoUIhJiw6Rja2VyZWkgZWljaGhvbHqSAQZiYWtlcnmaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMnQwUjFSVVpISmphbVI1WVRCU1NXTldTbWxqTVdSS1ZqQTFURkZXUlJBQuABAPoBBQj0ARAt!16s%2Fg%2F1tdnd7_k?entry=ttu&g_ep=EgoyMDI2MDcyNi4wIKXMDSoASAFQAw%3D%3D'
     ),
     filiale(
       'eisenach-gothaer', 'Filiale', 'Eisenach',
       { street: 'Gothaer Str. 1', zip: '99817', city: 'Eisenach' },
-      null
+      null,
+      photos('eisenach-gothaer', [
+        'Verkaufstheke der Filiale Gothaer Straße',
+        'Theke mit Brot und Kuchen in der Filiale Gothaer Straße',
+        'Brotregal der Filiale Gothaer Straße',
+        'Eingang der Filiale Gothaer Straße'
+      ])
     ),
     filiale(
       'erfurt-schloesserstrasse', 'Filiale', 'Erfurt',
       { street: 'Schlösserstraße 89', zip: '99084', city: 'Erfurt' },
       null,
-      null,
-      'https://www.google.com/maps/place/B%C3%A4ckerei+Eichholz/@51.0749405,9.7655539,79921m/data=!3m1!1e3!4m10!1m2!2m1!1sb%C3%A4ckerei+eichholz!3m6!1s0x47a490b951d436d7:0x754c019c6c9a4041!8m2!3d51.0749405!4d10.3258566!15sChJiw6Rja2VyZWkgZWljaGhvbHoiA4gBAVoUIhJiw6Rja2VyZWkgZWljaGhvbHqSAQZiYWtlcnmaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMjFWZDFsdVVtbFVTRkpRVVRCb1psbHJOVVJZTVd4NFVWZHdWbTk2WVhoQuABAPoBBAgAEEo!16s%2Fg%2F1w0qzy4t?entry=ttu&g_ep=EgoyMDI2MDcyNi4wIKXMDSoASAFQAw%3D%3D'
-    ),
-    // Zweite Erfurter Filiale: Adresse und Öffnungszeiten stehen noch nicht
-    // fest. Sobald bekannt: address-Objekt wie oben befüllen (isComplete
-    // wird dann automatisch true, Maps-/Routen-Links werden automatisch
-    // berechnet) und openingHours ergänzen.
-    filiale('erfurt-neu', 'Filiale', 'Erfurt', null, null)
+      photos('erfurt-schloesserstrasse', [
+        'Schaufenster der Filiale Schlösserstraße in Erfurt',
+        'Fensterplätze mit Blick auf die Schlösserstraße',
+        'Café-Bereich der Filiale Schlösserstraße',
+        'Sitznische in der Filiale Schlösserstraße',
+        'Sessel im Café der Filiale Schlösserstraße',
+        'Sitzecke am Fenster in der Filiale Schlösserstraße',
+        'Tische und Barhocker in der Filiale Schlösserstraße',
+        'Regal und Sitzplätze in der Filiale Schlösserstraße',
+        'Verkaufstheke der Filiale Schlösserstraße',
+        'Theke mit Steinbackofen in der Filiale Schlösserstraße',
+        'Kaffeekarte der Filiale Schlösserstraße',
+        'Eingang des Café Eichholz in der Schlösserstraße'
+      ]),
+      'https://www.google.com/maps/place/B%C3%A4ckerei+Eichholz/@50.977186,10.4693421,80090m/data=!3m2!1e3!5s0x47a47295f99269e1:0x56711cf864c77142!4m10!1m2!2m1!1sb%C3%A4ckerei+eichholz!3m6!1s0x47a4732a0cce5b5f:0x9a8a2da591a35e29!8m2!3d50.977186!4d11.0296448!15sChJiw6Rja2VyZWkgZWljaGhvbHoiA4gBAVoUIhJiw6Rja2VyZWkgZWljaGhvbHqSAQZiYWtlcnmaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMjVTVFUxSVJuRk9WbkIwV0RKSmVXTlhVWGxXUm5CVVZsZHdXRlpIWXhBQuABAPoBBAgAED0!16s%2Fg%2F11q2qkyfm8?entry=ttu&g_ep=EgoyMDI2MDcyNi4wIKXMDSoASAFQAw%3D%3D'
+    )
   ];
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -169,13 +206,23 @@
       }
 
       var index = 0;
+      var backdrop = document.createElement('div');
+      backdrop.className = 'filiale-modal-backdrop';
+      backdrop.setAttribute('aria-hidden', 'true');
       var img = document.createElement('img');
+      img.decoding = 'async';
+      var counter = document.createElement('span');
+      counter.className = 'filiale-modal-counter';
 
       var renderImage = function () {
-        img.src = f.images[index].src;
-        img.alt = f.images[index].alt || (f.name + ' – Bäckerei Eichholz');
+        var image = f.images[index];
+        img.src = image.src;
+        img.alt = image.alt || (f.name + ' – Bäckerei Eichholz');
+        backdrop.style.backgroundImage = 'url("' + image.src + '")';
+        counter.textContent = (index + 1) + ' / ' + f.images.length;
       };
       renderImage();
+      media.appendChild(backdrop);
       media.appendChild(img);
 
       if (f.images.length > 1) {
@@ -202,6 +249,7 @@
 
         media.appendChild(prev);
         media.appendChild(next);
+        media.appendChild(counter);
       }
     }
 
