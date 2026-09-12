@@ -84,7 +84,11 @@
     filiale(
       'eisenach-bahnhofstr', 'Filiale', 'Eisenach',
       { street: 'Bahnhofstraße 23', zip: '99817', city: 'Eisenach' },
-      null,
+      [
+        { day: 'Montag – Donnerstag', hours: '07:00 – 18:00 Uhr' },
+        { day: 'Freitag – Samstag', hours: '07:00 – 14:00 Uhr' },
+        { day: 'Sonntag', hours: 'Geschlossen' }
+      ],
       photos('eisenach-bahnhofstr', [
         'Brotregal und Theke in der Filiale Bahnhofstraße',
         'Verkaufstheke der Filiale Bahnhofstraße',

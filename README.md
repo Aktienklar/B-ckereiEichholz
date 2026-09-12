@@ -103,7 +103,6 @@ mit hochgeladen, sondern einmalig per `wrangler deploy` ausgerollt, siehe
 | Datei | Was fehlt | Grund |
 |---|---|---|
 | Domain | DNS zeigt noch auf die alte WordPress-Seite | Repo-Seite ist vorbereitet (`CNAME`, Canonical-Tags, Weiterleitungen, Worker). Offen sind nur noch die DNS-Records beim Hoster und der HTTPS-Haken – siehe Abschnitt „Domain-Umstellung" |
-| `js/filialen.js` | Öffnungszeiten der Filiale Bahnhofstraße | Die Zeiten von Karlstraße, Gothaer Straße und Schlösserstraße stammen von den Aushängen an den Filialtüren (Fotos vom 10./11.09.2026, vom Betrieb bestätigt) |
 | `datenschutz.html`, `agb.html`, `impressum.html` | **Anwaltliche Prüfung vor dem Live-Betrieb** | Die Texte sind inhaltlich ausformuliert und decken die Pflichtangaben ab (DSGVO Art. 13, § 5 DDG, § 36 VSBG, Widerrufs-Ausnahmen nach § 312g BGB). Sie wurden aber **nicht juristisch geprüft**. Vor dem Verkauf an Verbraucher von Anwalt oder Fachdienst (z. B. IT-Recht Kanzlei, Trusted Shops) prüfen lassen. Dabei auch klären, ob das Instagram-Widget (Behold) auf der Startseite ohne Einwilligung laden darf |
 | `impressum.html` | Prüfung auf Aktualität der übernommenen Pflichtangaben | Daten 1:1 vom alten Impressum übernommen, Stand unbekannt |
 | `kontakt.html` | Funktionierendes Kontaktformular (optional) | Reine HTML/CSS/JS-Seite kann Formulare ohne Backend nicht versenden; aktuell nur `mailto:`-Links. Bei Bedarf externen Formular-Dienst (z. B. Formspree, das Formular-Tool des Webhosters) einbinden |
