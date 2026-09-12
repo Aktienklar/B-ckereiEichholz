@@ -1,15 +1,15 @@
 #!/bin/bash
-# Prueft nach der DNS-Umstellung, ob die Domain auf GitHub Pages zeigt, die
-# Seite ausgeliefert wird und die E-Mail-Records unangetastet geblieben sind.
+# Prueft, ob unter der Domain die neue Seite ausgeliefert wird, die
+# Weiterleitungen der alten WordPress-Adressen greifen und die E-Mail-Records
+# unangetastet sind.
 #
 #   bash tools/domain-check.sh
 #
-# Solange die Umstellung noch nicht durch ist (oder der DNS-Cache noch die
-# alten Werte hat), schlagen die Web-Pruefungen fehl - das ist dann erwartet.
+# Die Seite laeuft auf dem Plesk-Webspace (Dokumentstamm httpdocs/neu), nicht
+# auf GitHub Pages - siehe README, Abschnitt "Hosting-Variante Plesk".
 
 DOMAIN="baeckerei-eichholz.de"
-PAGES_HOST="aktienklar.github.io"
-GH_IPS="185.199.108.153 185.199.109.153 185.199.110.153 185.199.111.153"
+SERVER_IP="94.199.215.70"
 MAIL_IP="94.199.215.70"
 SEITEN="/ /ueber-uns.html /sortiment.html /shop.html /hochzeitstorten.html \
 /oeffnungszeiten.html /kontakt.html /impressum.html /datenschutz.html /agb.html"
@@ -24,17 +24,12 @@ fail() { printf '  \033[31mFEHLT\033[0m %s\n' "$1"; fehler=$((fehler+1)); }
 
 echo
 echo "== DNS: Web =="
-a_ist=$(dig +short "$DOMAIN" A | sort | tr '\n' ' ')
-a_soll=$(echo $GH_IPS | tr ' ' '\n' | sort | tr '\n' ' ')
-if [ "$a_ist" = "$a_soll" ]; then ok "A-Records zeigen auf GitHub Pages"
-else fail "A-Records: $a_ist (erwartet: $a_soll)"; fi
-
-www=$(dig +short "www.$DOMAIN" CNAME)
-case "$www" in
-  "$PAGES_HOST."*|"$PAGES_HOST") ok "www ist CNAME auf $PAGES_HOST" ;;
-  "") fail "www hat keinen CNAME (zeigt auf: $(dig +short www.$DOMAIN A | tr '\n' ' '))" ;;
-  *)  fail "www zeigt auf $www" ;;
-esac
+a_ist=$(dig +short "$DOMAIN" A | tr '\n' ' ' | sed 's/ $//')
+if [ "$a_ist" = "$SERVER_IP" ]; then ok "Domain zeigt auf den Webspace ($SERVER_IP)"
+else fail "A-Record: $a_ist (erwartet: $SERVER_IP)"; fi
+www=$(curl -s -o /dev/null -w '%{redirect_url}' "https://www.$DOMAIN/")
+case "$www" in "https://$DOMAIN/"*) ok "www leitet auf die Hauptadresse um" ;;
+  *) fail "www leitet nach '${www:-nirgends}' - Bevorzugte Domain in Plesk gesetzt?" ;; esac
 
 echo
 echo "== DNS: E-Mail (muss unveraendert sein) =="
@@ -46,8 +41,11 @@ for h in mail webmail imap smtp autodiscover autoconfig; do
 done
 spf=$(dig +short "$DOMAIN" TXT | grep -i "v=spf1")
 if [ -z "$spf" ]; then fail "kein SPF-Record gefunden"
-elif echo "$spf" | grep -qE '(^|[ "])a([ "]|$)'; then fail "SPF enthaelt noch 'a' (wuerde GitHub-IPs als Mailversender erlauben): $spf"
-else ok "SPF ohne 'a': $spf"; fi
+else ok "SPF: $spf"; fi
+# Hinweis: Der 'a'-Mechanismus im SPF zeigt auf den A-Record der Domain. Der
+# ist weiterhin der Mailserver selbst, also unschaedlich. Erst wenn die Domain
+# einmal auf einen fremden Webhost (z. B. GitHub Pages) zeigt, muss 'a' raus -
+# sonst waere dessen IP als Mailversender autorisiert.
 
 echo
 echo "== HTTPS =="
@@ -63,14 +61,21 @@ for p in $SEITEN; do
   code=$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMAIN$p")
   if [ "$code" = "200" ]; then ok "$p"; else fail "$p -> $code"; fi
 done
-srv=$(curl -sI "https://$DOMAIN/" | grep -i '^server:' | tr -d '\r')
-case "$srv" in *GitHub*) ok "ausgeliefert von GitHub Pages ($srv)" ;; *) fail "Server-Header: ${srv:-keiner} - noch nicht GitHub Pages" ;; esac
+titel=$(curl -s "https://$DOMAIN/" | grep -io '<title>[^<]*</title>')
+case "$titel" in *"Frische"*|*"Konditorei"*) ok "Startseite ist die neue Fassung" ;;
+  *) fail "unerwarteter Seitentitel: ${titel:-keiner}" ;; esac
+for p in /wp-admin/ /wp-login.php /index.php; do
+  c=$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMAIN$p")
+  case "$c" in 200) fail "$p ist noch erreichbar - alte WordPress-Seite wird ausgeliefert" ;;
+    *) ok "$p nicht mehr erreichbar ($c)" ;; esac
+done
 
 echo
 echo "== Weiterleitungen alter WordPress-Adressen =="
 for p in $ALTE; do
-  if curl -s "https://$DOMAIN$p" | grep -q "ALTE_ADRESSEN"; then ok "$p erreicht die Weiterleitungsseite"
-  else fail "$p landet nicht auf 404.html"; fi
+  ziel=$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' "https://$DOMAIN$p")
+  case "$ziel" in 301*"$DOMAIN/"*.html) ok "$p -> ${ziel#301 }" ;;
+    *) fail "$p ergibt '$ziel' statt einer 301-Weiterleitung" ;; esac
 done
 
 echo
