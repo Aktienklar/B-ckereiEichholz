@@ -1,0 +1,57 @@
+# Apache-Konfiguration fuer das Hosting auf dem Plesk-Webspace.
+# Auf GitHub Pages hat diese Datei keine Wirkung und wird ignoriert - dort
+# uebernimmt die JavaScript-Loesung in 404.html dieselben Weiterleitungen.
+#
+# HTTPS und die Umleitung von http:// stellt Plesk selbst ein
+# (Hosting-Einstellungen -> SSL/TLS-Unterstuetzung), deshalb steht das hier
+# bewusst nicht drin.
+
+# Fehlerseite
+ErrorDocument 404 /404.html
+
+# Adressen der frueheren WordPress-Seite dauerhaft auf die neue Seite
+# umleiten (Stand: Sitemap der alten Seite, 15 Adressen). Echte 301er -
+# Suchmaschinen uebertragen damit die Bewertung der alten Adresse.
+RedirectMatch 301 ^/ueber-uns/?$                          /ueber-uns.html
+RedirectMatch 301 ^/wo-kommt-unser-brot-denn-her/?$       /ueber-uns.html
+RedirectMatch 301 ^/produktsortiment/?$                   /sortiment.html
+RedirectMatch 301 ^/template-item/produktsortiment/?$     /sortiment.html
+RedirectMatch 301 ^/torten/kinder-und-festtagstorten/?$   /sortiment.html
+RedirectMatch 301 ^/torten/hochzeitstorten/?$             /hochzeitstorten.html
+RedirectMatch 301 ^/torten/bestellformular/?$             /hochzeitstorten.html
+RedirectMatch 301 ^/torten/tortendekoration/?$            /hochzeitstorten.html
+RedirectMatch 301 ^/torten/?$                             /hochzeitstorten.html
+RedirectMatch 301 ^/filialen/?$                           /oeffnungszeiten.html
+RedirectMatch 301 ^/unsere-neue-filiale/?$                /oeffnungszeiten.html
+RedirectMatch 301 ^/kontakt/?$                            /kontakt.html
+RedirectMatch 301 ^/impressum/?$                          /impressum.html
+RedirectMatch 301 ^/datenschutz/?$                        /datenschutz.html
+RedirectMatch 301 ^/cookie-richtlinie-eu/?$               /datenschutz.html
+
+# Feeds und Suchergebnisse der alten WordPress-Installation auf die
+# Startseite, damit sie nicht ins Leere laufen.
+RedirectMatch 301 ^/feed/?$                               /
+RedirectMatch 301 ^/comments/feed/?$                      /
+
+# Komprimierung
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json image/svg+xml
+</IfModule>
+
+# Caching. CSS und JS tragen einen Versionsstempel im Dateinamen-Anhang
+# (?v=...), der sich bei jeder Aenderung mitaendert - sie duerfen deshalb
+# lange im Browser-Cache bleiben. HTML bewusst nicht.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                "access plus 1 year"
+  ExpiresByType application/javascript  "access plus 1 year"
+  ExpiresByType image/jpeg              "access plus 6 months"
+  ExpiresByType image/png               "access plus 6 months"
+  ExpiresByType image/webp              "access plus 6 months"
+  ExpiresByType image/x-icon            "access plus 6 months"
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+# Verzeichnisinhalte nicht auflisten
+Options -Indexes

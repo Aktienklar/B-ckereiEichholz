@@ -148,6 +148,30 @@ Nach der Umstellung in den Repo-Einstellungen unter *Pages* den Haken bei
 ausgestellt ist, meist innerhalb einer Stunde). Prüfen lässt sich der Stand
 mit `tools/domain-check.sh`.
 
+## Hosting-Variante Plesk (aktuell genutzt)
+
+Die DNS-Zone der Domain ist im Plesk-Abo nicht freigeschaltet (im Tab
+*Hosting und DNS* fehlt die Kachel *DNS-Einstellungen*), und der Vertrag
+liegt beim vorherigen Anbieter. Die Seite wird deshalb nicht ueber
+GitHub Pages ausgeliefert, sondern direkt vom Webspace - ohne DNS-Aenderung.
+
+Aufbau: Die neue Seite liegt in `httpdocs/neu`, der *Dokumentstamm* der Domain
+zeigt dorthin. Die alte WordPress-Installation bleibt unberuehrt in
+`httpdocs/` liegen, wird aber nicht mehr ausgeliefert. Zurueckschalten geht
+darum jederzeit, indem der Dokumentstamm wieder auf `httpdocs` gesetzt wird.
+
+Veroeffentlichen:
+
+1. `python3 tools/stamp-assets.py`
+2. Geaenderte Dateien per Plesk-Dateimanager oder FTP nach `httpdocs/neu`
+   hochladen (`.git`, `tools/`, `README.md` und `CNAME` gehoeren nicht dorthin)
+
+Die `.htaccess` im Wurzelverzeichnis uebernimmt auf dem Webspace die
+Weiterleitungen der alten WordPress-Adressen als echte 301er sowie
+Komprimierung und Cache-Zeiten. Sie haelt dieselben 15 Adressen wie die
+JavaScript-Loesung in `404.html`; wird eine Adresse ergaenzt, muss sie an
+beiden Stellen stehen. Auf GitHub Pages hat die Datei keine Wirkung.
+
 ## Übernommene Original-Inhalte
 
 Direkt von der alten Website übernommen (kein Platzhalter nötig):
