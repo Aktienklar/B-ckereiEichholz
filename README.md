@@ -102,7 +102,7 @@ mit hochgeladen, sondern einmalig per `wrangler deploy` ausgerollt, siehe
 
 | Datei | Was fehlt | Grund |
 |---|---|---|
-| Domain | `baeckerei-eichholz.de` zeigt noch auf die alte WordPress-Seite | Die neue Seite läuft bisher nur unter `aktienklar.github.io/B-ckereiEichholz`. DNS beim Domain-Anbieter auf GitHub Pages umstellen und in den Repo-Einstellungen unter Pages die Custom Domain eintragen. Danach im Stripe-Worker die erlaubte Herkunft und die Rücksprung-Adressen von `aktienklar.github.io` auf die Domain umstellen und neu deployen. `robots.txt`, `sitemap.xml` und die Weiterleitungen alter Adressen in `404.html` wirken erst ab dann |
+| Domain | DNS zeigt noch auf die alte WordPress-Seite | Repo-Seite ist vorbereitet (`CNAME`, Canonical-Tags, Weiterleitungen, Worker). Offen sind nur noch die DNS-Records beim Hoster und der HTTPS-Haken – siehe Abschnitt „Domain-Umstellung" |
 | `js/filialen.js` | Öffnungszeiten der Filiale Bahnhofstraße | Die Zeiten von Karlstraße, Gothaer Straße und Schlösserstraße stammen von den Aushängen an den Filialtüren (Fotos vom 10./11.09.2026, vom Betrieb bestätigt) |
 | `datenschutz.html`, `agb.html`, `impressum.html` | **Anwaltliche Prüfung vor dem Live-Betrieb** | Die Texte sind inhaltlich ausformuliert und decken die Pflichtangaben ab (DSGVO Art. 13, § 5 DDG, § 36 VSBG, Widerrufs-Ausnahmen nach § 312g BGB). Sie wurden aber **nicht juristisch geprüft**. Vor dem Verkauf an Verbraucher von Anwalt oder Fachdienst (z. B. IT-Recht Kanzlei, Trusted Shops) prüfen lassen. Dabei auch klären, ob das Instagram-Widget (Behold) auf der Startseite ohne Einwilligung laden darf |
 | `impressum.html` | Prüfung auf Aktualität der übernommenen Pflichtangaben | Daten 1:1 vom alten Impressum übernommen, Stand unbekannt |
@@ -110,6 +110,44 @@ mit hochgeladen, sondern einmalig per `wrangler deploy` ausgerollt, siehe
 | `agb.html` ↔ `stripe-worker/worker.js` | Beträge synchron halten | Die AGB nennen Mindestbestellwert 10 €, Versand 4,90 €, versandkostenfrei ab 40 € und 50 € Tortenanzahlung. Diese Werte stehen im Worker als Env-Variablen (`MIN_ORDER_CENTS`, `SHIPPING_FLAT_CENTS`, `FREE_SHIPPING_THRESHOLD_CENTS`, `CAKE_DEPOSIT_CENTS`). Wird dort etwas geändert, müssen die AGB mitgeändert werden |
 | `stripe-worker/` | Echte Testbestellung im Shop und eine Tortenanzahlung | Der Worker ist deployt und antwortet. Offen ist, ob Stripe im Live-Modus läuft und die Bestätigungs-E-Mails ankommen - das lässt sich nur mit einer echten Bestellung prüfen |
 | `impressum.html` | Nach dem Inhaberwechsel auf Tim Eichholz prüfen: Berufsbezeichnung „Bäckermeister“ und USt-IdNr. | Beide Angaben stammen noch aus der Zeit von Jürgen Eichholz. Bei einem Einzelunternehmen hängen sie in der Regel an der Person des Inhabers |
+## Domain-Umstellung
+
+Die Seite läuft auf GitHub Pages (Repo `Aktienklar/B-ckereiEichholz`, Branch
+`main`). Die Datei `CNAME` im Repo-Wurzelverzeichnis setzt die Custom Domain –
+sie darf nicht gelöscht werden, sonst fällt die Seite auf die
+`aktienklar.github.io`-Adresse zurück.
+
+Achtung: E-Mail der Domain liegt auf demselben Server wie die alte
+WordPress-Seite (MX → `mail.baeckerei-eichholz.de` → `94.199.215.70`). Beim
+Umstellen dürfen daher nur die Web-Records geändert werden; MX und die
+Hostnamen `mail`, `webmail`, `imap`, `smtp`, `autodiscover`, `autoconfig`
+bleiben unverändert, und das Hosting-Abo darf nicht gekündigt werden, solange
+dort Postfächer liegen.
+
+DNS-Records (in Plesk unter *Hosting und DNS → DNS*):
+
+| Name | Typ | Wert |
+|---|---|---|
+| `baeckerei-eichholz.de` | A | `185.199.108.153` |
+| `baeckerei-eichholz.de` | A | `185.199.109.153` |
+| `baeckerei-eichholz.de` | A | `185.199.110.153` |
+| `baeckerei-eichholz.de` | A | `185.199.111.153` |
+| `www` | CNAME | `aktienklar.github.io.` |
+
+Der bisherige A-Record des Hauptnamens und der A-Record von `www` (beide
+`94.199.215.70`) entfallen dabei. Die SPF-Zeile muss ihr `a`-Mechanismus
+verlieren, weil der sonst auf die GitHub-IPs zeigt und diese als Mailversender
+autorisieren würde:
+
+```
+v=spf1 mx ip4:94.199.215.70 ip6:2a0a:51c0:0:12f::9 ~all
+```
+
+Nach der Umstellung in den Repo-Einstellungen unter *Pages* den Haken bei
+*Enforce HTTPS* setzen (geht erst, wenn das Let's-Encrypt-Zertifikat
+ausgestellt ist, meist innerhalb einer Stunde). Prüfen lässt sich der Stand
+mit `tools/domain-check.sh`.
+
 ## Übernommene Original-Inhalte
 
 Direkt von der alten Website übernommen (kein Platzhalter nötig):
