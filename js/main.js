@@ -75,7 +75,15 @@ document.addEventListener('DOMContentLoaded', function () {
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    // Ausloesen, sobald die Oberkante eines Elements die unteren 15% des
+    // Fensters erreicht - bewusst ueber rootMargin statt ueber threshold.
+    // Ein threshold von 0.15 verlangt, dass 15% des Elements gleichzeitig
+    // sichtbar sind; bei Elementen, die laenger als das Fenster sind (die
+    // Rechtstexte auf datenschutz.html/agb.html/impressum.html liegen je in
+    // EINER .contact-card), ist das unmoeglich - die Karte blieb dann
+    // dauerhaft unsichtbar. Mit threshold 0 zaehlt jede Beruehrung, und die
+    // Verzoegerung uebernimmt der negative rootMargin.
+    }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
 
     revealGroups.forEach(function (group) {
       var els = Array.prototype.slice.call(document.querySelectorAll(group.selector));
